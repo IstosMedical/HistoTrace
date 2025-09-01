@@ -1,44 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const MAX_MACHINES = 10;
   let machineCount = 0;
-  const maxMachines = 10;
 
   const machineContainer = document.getElementById("machineContainer");
   const addMachineBtn = document.getElementById("addMachineBtn");
 
-  // 🧩 Add Equipment Block
-  function addMachineBlock() {
-    if (machineCount >= maxMachines) {
-      showToast("⚠️ Max 10 machines allowed");
-      return;
-    }
+  // 🧩 Equipment Block Template
+  function createMachineBlock(index) {
+    const qrResultId = `qrResult${index}`;
+    const qrManualId = `qrManual${index}`;
+    const qrReaderId = `qrReader${index}`;
 
-    const qrResultId = `qrResult${machineCount}`;
-    const qrManualId = `qrManual${machineCount}`;
-    const qrReaderId = `qrReader${machineCount}`;
-    const block = document.createElement("div");
-    block.className = "machine-block";
-
-    block.innerHTML = `
+    return `
       <label>🧪 Instrument Type:
-        <select name="InstrumentType${machineCount}" required>
+        <select name="InstrumentType${index}" required>
           <option value="" disabled selected>Select instrument</option>
-          <option value="Automated Slide Stainer">Automated Slide Stainer</option>
-          <option value="Automated Tissue Processor">Automated Tissue Processor</option>
-          <option value="Bane Saw Machine">Bane Saw Machine</option>
-          <option value="Cryostat Microtome">Cryostat Microtome</option>
-          <option value="Grossing station">Grossing station</option>
-          <option value="Rotary Microtome">Rotary Microtome</option>
-          <option value="Tissue Embedding Station">Tissue Embedding Station</option>
-          <option value="Water Baths">Water Baths</option>
+          ${getInstrumentOptions()}
         </select>
       </label>
 
       <label>📦 Model:
-        <input type="text" name="Model${machineCount}" />
+        <input type="text" name="Model${index}" />
       </label>
 
       <label>🔢 Serial Number:
-        <input type="text" name="Serial${machineCount}" required />
+        <input type="text" name="Serial${index}" required />
       </label>
 
       <label>🔍 Scanned QR ID:
@@ -49,16 +35,43 @@ document.addEventListener("DOMContentLoaded", () => {
       <button type="button" onclick="startQRScan('${qrReaderId}', '${qrResultId}')">📷 Scan QR Code</button>
 
       <label>✏️ Manual QR ID (if scan fails):
-        <input type="text" id="${qrManualId}" name="ManualQR${machineCount}" />
+        <input type="text" id="${qrManualId}" name="ManualQR${index}" />
       </label>
     `;
+  }
+
+  // 🎛️ Instrument Options
+  function getInstrumentOptions() {
+    const instruments = [
+      "Automated Slide Stainer",
+      "Automated Tissue Processor",
+      "Bane Saw Machine",
+      "Cryostat Microtome",
+      "Grossing station",
+      "Rotary Microtome",
+      "Tissue Embedding Station",
+      "Water Baths"
+    ];
+    return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
+  }
+
+  // ➕ Add Equipment Block
+  function addMachineBlock() {
+    if (machineCount >= MAX_MACHINES) {
+      showToast("⚠️ Max 10 machines allowed");
+      return;
+    }
+
+    const block = document.createElement("div");
+    block.className = "machine-block";
+    block.innerHTML = createMachineBlock(machineCount);
 
     machineContainer.appendChild(block);
     machineCount++;
     showToast("✅ Equipment block added");
   }
 
-  // 📷 QR Scan Logic (per block)
+  // 📷 QR Scan Logic
   window.startQRScan = function (readerId, resultId) {
     const qrScanner = new Html5Qrcode(readerId);
     qrScanner.start(
@@ -67,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
       qrCodeMessage => {
         document.getElementById(resultId).value = qrCodeMessage;
         qrScanner.stop().then(() => {
-          document.getElementById(readerId).innerHTML = ""; // Collapse scanner
+          document.getElementById(readerId).innerHTML = "";
           showToast("🔍 QR scanned and scanner closed");
         });
       },
@@ -88,6 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 2000);
   }
 
-  // 🧠 Event Bindings
+  // 🧠 Bind Events
   addMachineBtn.addEventListener("click", addMachineBlock);
 });
