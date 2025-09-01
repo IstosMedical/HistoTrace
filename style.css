@@ -8,7 +8,7 @@ body {
 }
 
 .form-group {
-  margin-bottom: 16px; /* Adds one line gap between fields */
+  padding-bottom: 16px; /* Adds one line gap between fields */
 }
 
 #installForm {
