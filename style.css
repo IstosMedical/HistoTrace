@@ -10,15 +10,11 @@ body {
 /* 📱 Mobile Tweaks */
 @media (max-width: 600px) {
   .form-group {
-    margin-bottom: 8px;
-  }
-
-  input, select {
-    margin-top: 8px;
+    margin-bottom: 10px;
   }
 
   main {
-    padding: 10px;
+    padding: 12px;
   }
 
   button {
@@ -32,7 +28,7 @@ body {
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 /* 🧬 Logo Styling */
@@ -94,8 +90,8 @@ h2, h3 {
 /* 🖊️ Labels & Inputs */
 label {
   display: block;
-  margin-bottom: 4px;
-  padding-bottom: 5px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
   font-weight: 500;
 }
 
@@ -105,7 +101,7 @@ input, select {
   font-size: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  margin-top: 4px;
+  margin-top: 10px;
   box-sizing: border-box;
 }
 
@@ -130,9 +126,9 @@ button:hover {
 /* 🛠️ Equipment Block */
 .machine-block {
   background-color: #e6f2f8;
-  padding: 10px;
+  padding: 12px;
   border-radius: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   border-left: 4px solid #2b9cfb;
 }
 
