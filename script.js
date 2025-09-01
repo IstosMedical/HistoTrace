@@ -19,13 +19,11 @@ document.addEventListener("DOMContentLoaded", () => {
         </select>
       </label>
 
-      <label>📦 Model:
-        <label>📦 Model: <input type="text" name="Model${index}" class="half-width" /></label>
-      </label>
+      <label for="model">Model</label>
+      <input type="text" id="model" name="model" class="quarter-width" />
 
-      <label>🔢 Serial Number:
-        <label>🔢 Serial Number: <input type="text" name="Serial${index}" required class="half-width" /></label>
-      </label>
+      <label for="serial">Serial Number</label>
+      <input type="text" id="serial" name="serial" class="quarter-width" />
 
       <label>🔍 Scanned QR ID:
         <input type="text" id="${qrResultId}" readonly />
