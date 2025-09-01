@@ -1,44 +1,251 @@
+<!-- HistoTrace.html -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css" />
-  <title>HistoTrace System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iStock</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 
-  <!-- android App Settings -->
-  <link rel="manifest" href="manifest.json">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Android App Settings -->
+  <link rel="manifest" href="manifest.json" />
 
   <!-- iOS App Settings -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="ISTOS Leads">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="istock" />
+  <link rel="apple-touch-icon" href="mini.png" />
 
-<!-- iOS Splash Screen Icon -->
-  <link rel="apple-touch-icon" href="icons/icon-192.jpg">
+  <style>
+  #toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #493320;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    z-index: 9999;
+  }
+</style>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .biscuit-bg {
+      background-color: #FFEBCD;
+      border: 1px solid #ccc;
+      width: 80px;
+    }
+    
+    .readonly-field {
+      background-color: #FFEBCD;
+      border: 1px solid #ccc;
+      width: 80px;
+    }
+
+    .error {
+      color: #b00020;
+      background-color: #ffe6e6;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    @keyframes logoReveal {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    .top-logo {
+      width: 25%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      animation: logoReveal 0.8s ease-out forwards;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 30px;
+      max-width: 180px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.05);
+    }
+
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px; /* Adjust spacing as needed */
+    }
+
+    input, select, textarea {
+      margin-bottom: 16px;
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    .date-width {
+      width: 50%;
+    }
+
+    .customer-width {
+      width: 65%;
+    }
+
+    .address-width {
+      width: 85%;
+    }
+    
+    .half-width {
+      width: 50%;
+    }
+
+    .three-quarter-width {
+      width: 75%;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 200px;
+      padding: 10px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #1c5980;
+      transform: scale(1.03);
+    }
+
+    .success {
+      text-align: center;
+      color: green;
+      margin-top: 15px;
+    }
+
+    .error {
+      text-align: center;
+      color: red;
+      margin-top: 15px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        margin: 10px;
+        padding: 20px;
+      }
+
+      input, select, textarea {
+        font-size: 16px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
+
+    <div id="toast" style="display: none;"></div>
+
+      <form id="HistoForm" method="POST" action="https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec">
+        
+        <input type="hidden" name="formType" value="histo" />
+         <h3 style="text-align: center; margin-top: 1; margin-bottom: 20px; color: #3b5998;">💻 HistoTrace updation</h3>   
+     
+      <label>✒️ Customer Name:</label>
+        <input type="text" id="customername" readonly class="Customer-Width" style="width: 140px;" maxlength="8" />
+
+      <label>✒️ Address:</label>
+      <input type="text" id="customeraddress" readonly class="address-Width" style="width: 140px;" maxlength="8" />
+
+        
+        </select>
+
+<!-- 📦 Scanned QR ID Field -->
+<div style="margin-top: 10px;">
+  <label for="qr-result">Scanned QR ID:</label>
+  <small style="color: grey; display: block; margin-top: 6px; margin-bottom: 10px;">This is an optional field</small>
+  <input
+    type="text"
+    id="qr-result"
+    name="qr-result"
+    readonly
+    style="font-weight: bold; background: #f0f0f0;"
+  />
+</div>
+
+<!-- 📷 QR Scanner UI -->
+<div class="container" style="margin-top: 20px;">
+  <h3>Scan QR Codes</h3>
+  <div class="section">
+    <div id="my-qr-reader"></div>
+  </div>
+</div>
+
+<!-- 📜 QR Scanner Script -->
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script>
+  function domReady(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+      setTimeout(fn, 1000);
+    } else {
+      document.addEventListener("DOMContentLoaded", fn);
+    }
+  }
+
 
   
-<body>
-  <main>
-    <h2 style="text-align: center;">📋 HistoTrace Form</h2>
-
-    <form id="installForm">
-      <label>🧑 Customer Name:
-        <input type="text" name="clientName" class="customer-width" required />
-      </label>
-
-      <label>🌍 Address:
-        <input type="text" name="clientAddress" required />
-      </label>
-      
-      <label>👔 Engineer Name:
-        <input type="text" name="engineerName" class="engineer-width" required />
-      </label>
-
-      <label>🗓️ Equipment Installation Date:
-        <input type="date" name="installDate" class="date-width" required />
-      </label>
 
       <!-- ➕ Add Machine Button -->
       <div style="text-align: center;">
