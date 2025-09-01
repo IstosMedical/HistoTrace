@@ -7,6 +7,26 @@ body {
   padding: 0;
 }
 
+#installForm {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* Embossed effect */
+  margin-bottom: 30px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.three-quarter {
+  width: 75%;
+}
+
+.half-width {
+  width: 50%;
+}
+
 /* Main Container */
 main {
   max-width: 600px;
