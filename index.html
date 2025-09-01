@@ -13,11 +13,12 @@
 <body>
   <div class="container">
     <!-- Logo Animation -->
-    <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
-
     <main>
       <form id="installForm">
-        <h2 class="form-title">🧬 HistoTrace Installation Record</h2>
+        <!-- 🧬 ISTOS Logo -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
+        </div>
 
         <div class="form-group">
           <label for="installationDate">📅 Installation Date:</label>
@@ -38,35 +39,36 @@
           <label for="engineer">👨‍🔧 Engineer:</label>
           <input type="text" id="engineer" name="engineer" required class="three-quarter" />
         </div>
+
+        <!-- 🔸 Subtle Divider -->
+        <hr style="border: none; border-top: 4px dashed #ccc; margin: 40px 0;" />
+
+        <!-- 🛠️ Equipment Section -->
+        <section id="machineSection">
+          <h3>🛠️ Record New Equipment</h3>
+          <div id="machineContainer"></div>
+
+          <div style="text-align: center;">
+            <button type="button" id="addMachineBtn" class="istos-btn add-machine-btn">➕ Add Equipment</button>
+          </div>
+        </section>
+
+        <!-- ✅ Submit Button -->
+        <div style="text-align: center; margin-top: 30px;">
+          <button type="submit" class="istos-btn submit-btn">✅ Submit Record</button>
+        </div>
       </form>
-    </main>
 
-<!-- 🔸 Subtle Divider -->
-<hr style="border: none; border-top: 4px dashed #ccc; margin: 40px 0;" />
-
-    <section id="machineSection">
-      <h3>🛠️ Record New Equipment</h3>
-      <div id="machineContainer"></div>
-
-      <div style="text-align: center;">
-        <button type="button" id="addMachineBtn" class="istos-btn add-machine-btn">➕ Add Equipment</button>
+      <!-- 🔔 Toast Feedback -->
+      <div id="toast" style="display:none; background:#e0f7fa; color:#00796b; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
+        Record submitted!
       </div>
-    </section>
 
-    <button type="submit">✅ Submit Record</button>
-  </form>
-
-  <!-- 🔔 Toast Feedback -->
-  <div id="toast" style="display:none; background:#e0f7fa; color:#00796b; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
-    Record submitted!
+      <!-- ⚠️ QR Scan Error Message -->
+      <div id="error-message" style="display:none; background:#ffe0e0; color:#b00020; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
+        <!-- Error message will appear here -->
+      </div>
+    </main>
   </div>
-
-  <!-- ⚠️ QR Scan Error Message -->
-  <div id="error-message" style="display:none; background:#ffe0e0; color:#b00020; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
-    <!-- Error message will appear here -->
-  </div>
-</main>
-  
 </body>
 </html>
-
