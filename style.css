@@ -96,15 +96,13 @@ label {
 }
 
 input, select {
-  width: 100%;
-  padding: 2px;
+  height: 48px; /* Or any value that suits your layout */
   font-size: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
   margin-top: 10px;
   box-sizing: border-box;
 }
-
 
 /* 🔘 Buttons */
 button {
