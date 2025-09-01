@@ -22,14 +22,23 @@ document.getElementById("addMachineBtn").addEventListener("click", () => {
         <option value="Water Baths">Water Baths</option>
       </select>
     </label>
+    <label>Instrument Type:
+      <input type="text" name="InstrumentType${machineCount}" />
+    </label>
+    <label>Model:
+      <input type="text" name="ModelNumber${machineCount}" />
+    </label>
     <label>Serial Number:
       <input type="text" name="serialNumber${machineCount}" />
     </label>
-    <label>Inside Box Details:
-      <input type="text" name="boxdetails${machineCount}" />
+    <label>PrincipalDetails:
+      <input type="text" name="Principal${machineCount}" />
     </label>
-    <label>Notes:
-      <input type="text" name="notes${machineCount}" />
+    <label>Hardware version:
+      <input type="text" name="HardwareVersion${machineCount}" />
+    </label>
+    <label>Software version:
+      <input type="text" name="SoftwareVersion${machineCount}" />
     </label>
   `;
 
