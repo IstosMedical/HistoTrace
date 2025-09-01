@@ -1,5 +1,5 @@
 let machineCount = 0;
-const maxMachines = 7;
+const maxMachines = 10;
 
 document.getElementById("addMachineBtn").addEventListener("click", () => {
   if (machineCount >= maxMachines) return alert("Max 7 machines allowed.");
@@ -8,14 +8,14 @@ document.getElementById("addMachineBtn").addEventListener("click", () => {
   const block = document.createElement("div");
   block.className = "machine-block";
   block.innerHTML = `
-    <label>Machine Type:
-      <input type="text" name="machineType${machineCount}" required />
+    <label>Machine Name:
+      <input type="text" name="machinename${machineCount}" required />
     </label>
     <label>Serial Number:
       <input type="text" name="serialNumber${machineCount}" required />
     </label>
-    <label>Status:
-      <input type="text" name="status${machineCount}" />
+    <label>Inside Box Details:
+      <input type="text" name="boxdetails${machineCount}" />
     </label>
     <label>Notes:
       <input type="text" name="notes${machineCount}" />
