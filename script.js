@@ -57,5 +57,19 @@ document.getElementById("installForm").addEventListener("submit", (e) => {
   document.getElementById("toast").classList.remove("hidden");
   setTimeout(() => {
     document.getElementById("toast").classList.add("hidden");
+
+
+
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.id = 'toast';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+}
+
+// Call this after adding a machine block
+showToast('Machine added ✅');
+
   }, 3000);
 });
