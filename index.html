@@ -272,18 +272,23 @@
     <div id="toast" class="hidden">Record submitted!</div>
   </main>
 
+<script>
 let machineCount = 0;
 const maxMachines = 10;
 
-document.getElementById("addMachineBtn").addEventListener("click", () => {
-  if (machineCount >= maxMachines) return alert("Max 10 machines allowed.");
+function addMachineBlock() {
+  if (machineCount >= maxMachines) {
+    alert("Max 10 machines allowed.");
+    return;
+  }
 
   const container = document.getElementById("machineContainer");
   const block = document.createElement("div");
   block.className = "machine-block";
+  block.style.marginBottom = "20px";
 
   block.innerHTML = `
-    <label>Machine Type:
+    <label>🛠️ Machine Type:
       <select name="machineType${machineCount}" required>
         <option value="" disabled selected>Select machine</option>
         <option value="Automated Slide Stainer">Automated Slide Stainer</option>
@@ -296,52 +301,48 @@ document.getElementById("addMachineBtn").addEventListener("click", () => {
         <option value="Water Baths">Water Baths</option>
       </select>
     </label>
-    <label>Instrument Type:
+
+    <label>✒️ Instrument Type:
       <input type="text" name="InstrumentType${machineCount}" />
     </label>
-    <label>Model:
+
+    <label>✒️ Model:
       <input type="text" name="ModelNumber${machineCount}" />
     </label>
-    <label>Serial Number:
-      <input type="text" name="serialNumber${machineCount}" />
+
+    <label>✒️ Serial Number:
+      <input type="text" name="SerialNumber${machineCount}" />
     </label>
-    <label>PrincipalDetails:
+
+    <label>✒️ Principal:
       <input type="text" name="Principal${machineCount}" />
     </label>
-    <label>Hardware version:
+
+    <label>✒️ Hardware Version:
       <input type="text" name="HardwareVersion${machineCount}" />
     </label>
-    <label>Software version:
+
+    <label>✒️ Software Version:
       <input type="text" name="SoftwareVersion${machineCount}" />
     </label>
   `;
 
   container.appendChild(block);
   machineCount++;
-});
 
-
-document.getElementById("installForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  document.getElementById("toast").classList.remove("hidden");
-  setTimeout(() => {
-    document.getElementById("toast").classList.add("hidden");
-
-
-
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.id = 'toast';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 2000);
+  showToast("🧩 Equipment block added");
 }
 
-// Call this after adding a machine block
-showToast('Machine added ✅');
+document.getElementById("addMachineBtn").addEventListener("click", addMachineBlock);
 
-  }, 3000);
-});
-  
-</body>
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2000);
+}
+</script>
+
 </html>
