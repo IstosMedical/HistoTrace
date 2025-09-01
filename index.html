@@ -9,42 +9,55 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <main>
-    <h2 style="text-align: center; margin-bottom: 20px;">🧬 HistoTrace System</h2>
 
-    <form id="installForm">
-      <label>👤 Customer Name:
-        <input type="text" name="customerName" required />
-      </label>
+<main>
+  <h2 style="text-align: center; margin-bottom: 20px;">🧬 HistoTrace System</h2>
 
-      <label>📍 Address:
-        <input type="text" name="address" required />
-      </label>
+  <form id="installForm">
+    <label>👤 Customer Name:
+      <input type="text" name="customerName" required />
+    </label>
 
-      <label>👨‍🔧 Engineer:
-        <input type="text" name="engineer" required />
-      </label>
+    <label>📍 Address:
+      <input type="text" name="address" required />
+    </label>
 
-      <label>📅 Installation Date:
-        <input type="date" name="installationDate" required />
-      </label>
+    <label>👨‍🔧 Engineer:
+      <input type="text" name="engineer" required />
+    </label>
 
-      <hr />
+    <label>📅 Installation Date:
+      <input type="date" name="installationDate" required />
+    </label>
 
-      <section id="machineSection">
-        <h3>🛠️ Record New Equipment</h3>
-        <div id="machineContainer"></div>
+    <hr />
 
-        <div style="text-align: center;">
-          <button type="button" id="addMachineBtn" class="istos-btn add-machine-btn">➕ Add Equipment</button>
-        </div>
-      </section>
+    <section id="machineSection">
+      <h3>🛠️ Record New Equipment</h3>
+      <div id="machineContainer"></div>
 
-      <button type="submit">✅ Submit Record</button>
-    </form>
+      <div style="text-align: center;">
+        <button type="button" id="addMachineBtn" class="istos-btn add-machine-btn">➕ Add Equipment</button>
+      </div>
+    </section>
 
-    <div id="toast" class="hidden">Record submitted!</div>
-  </main>
+    <button type="submit">✅ Submit Record</button>
+  </form>
+
+  <!-- 🔔 Toast Feedback -->
+  <div id="toast" class="hidden" style="display:none; background:#e0f7fa; color:#00796b; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
+    Record submitted!
+  </div>
+
+  <!-- ⚠️ QR Scan Error Message -->
+  <div id="error-message" style="display:none; background:#ffe0e0; color:#b00020; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
+    <!-- Error message will appear here -->
+  </div>
+</main>
+
+
+
+  
 </body>
 </html>
 
