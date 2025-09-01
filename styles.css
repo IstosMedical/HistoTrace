@@ -51,3 +51,20 @@ button {
 .hidden {
   display: none;
 }
+
+.istos-btn {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.istos-btn:hover {
+  background-color: #1c5980;
+  transform: scale(1.03);
+}
+
