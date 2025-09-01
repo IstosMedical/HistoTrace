@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     machineContainer.appendChild(block);
     machineCount++;
-    showToast("✅ Equipment block added");
+    showToast("✅ New Equipment block displayed");
   }
 
   // 📷 QR Scan Logic (per block)
