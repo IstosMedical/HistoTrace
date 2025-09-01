@@ -4,35 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🧬 HistoTrace</title>
+
+  <!-- Styles & Scripts -->
   <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/html5-qrcode" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
-
   <div class="container">
+    <!-- Logo Animation -->
     <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
-    
-<main>
-<form id="installForm">
-  
-  <label>📅 Installation Date:
-    <input type="date" name="installationDate" required class="half-width" />
-  </label>
-  
-  <label>👤 Customer Name:
-    <input type="text" name="customerName" required class="three-quarter" />
-  </label>
-  
-  <label>📍 Address:
-    <input type="text" name="address" rows = "2" required class="three-quarter" />
-  </label>
-  
-  <label>👨‍🔧 Engineer:
-    <input type="text" name="engineer" required class="three-quarter" />
-  </label>
-  
-</form>
+
+    <main>
+      <form id="installForm">
+        <h2 class="form-title">🧬 HistoTrace Installation Record</h2>
+
+        <div class="form-group">
+          <label for="installationDate">📅 Installation Date:</label>
+          <input type="date" id="installationDate" name="installationDate" required class="half-width" />
+        </div>
+
+        <div class="form-group">
+          <label for="customerName">👤 Customer Name:</label>
+          <input type="text" id="customerName" name="customerName" required class="three-quarter" />
+        </div>
+
+        <div class="form-group">
+          <label for="address">📍 Address:</label>
+          <input type="text" id="address" name="address" required class="three-quarter" />
+        </div>
+
+        <div class="form-group">
+          <label for="engineer">👨‍🔧 Engineer:</label>
+          <input type="text" id="engineer" name="engineer" required class="three-quarter" />
+        </div>
+      </form>
+    </main>
+  </div>
 
 <!-- 🔸 Subtle Divider -->
 <hr style="border: none; border-top: 4px dashed #ccc; margin: 40px 0;" />
@@ -59,9 +67,6 @@
     <!-- Error message will appear here -->
   </div>
 </main>
-
-
-
   
 </body>
 </html>
