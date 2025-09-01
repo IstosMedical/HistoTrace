@@ -72,7 +72,7 @@ body {
 
 /* 📦 Field Grouping */
 .form-group {
-  padding-bottom: 16px;
+  padding-bottom: 12px;
 }
 
 /* 🧱 Main Container */
@@ -94,7 +94,7 @@ h2, h3 {
 /* 🖊️ Labels & Inputs */
 label {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
   font-weight: 500;
 }
 
