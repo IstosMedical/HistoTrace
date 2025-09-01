@@ -21,10 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       <label>📦 Model:
         <input type="text" name="Model${index}" />
+        <label>📦 Model: <input type="text" name="Model${index}" class="half-width" /></label>
       </label>
 
       <label>🔢 Serial Number:
         <input type="text" name="Serial${index}" required />
+        <label>🔢 Serial Number: <input type="text" name="Serial${index}" required class="half-width" /></label>
       </label>
 
       <label>🔍 Scanned QR ID:
