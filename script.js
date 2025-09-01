@@ -22,10 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <label for="model">Model</label>
       <input type="text" id="model" name="model" class="quarter-width" />
 
-      <label for="serial">Serial Number</label>
-      <input type="text" id="serial" name="serial" class="quarter-width" />
-
-      <label>🔍 Scanned QR ID:
+      <label>🔍 Scanned QR ID / Fetch Serial Number:
         <input type="text" id="${qrResultId}" readonly />
       </label>
 
