@@ -13,10 +13,6 @@ body {
     margin-bottom: 10px;
   }
 
-  main {
-    padding: 4px;
-  }
-
   button {
     width: 100%;
   }
@@ -85,14 +81,6 @@ main {
 h2, h3 {
   color: #2b9cfb;
   margin-bottom: 10px;
-}
-
-/* 🖊️ Labels & Inputs */
-label {
-  display: block;
-  margin-bottom: 8px;
-  padding-bottom: 8px;
-  font-weight: 500;
 }
 
 input, select {
