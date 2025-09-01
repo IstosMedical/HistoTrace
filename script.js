@@ -12,13 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const blockId = `machineBlock${machineCount}`;
     const qrResultId = `qrResult${machineCount}`;
+    const qrManualId = `qrManual${machineCount}`;
     const qrReaderId = `qrReader${machineCount}`;
-
     const block = document.createElement("div");
     block.className = "machine-block";
-    block.id = blockId;
+
     block.innerHTML = `
       <label>🧪 Instrument Type:
         <select name="InstrumentType${machineCount}" required>
@@ -38,33 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" name="Model${machineCount}" />
       </label>
 
-      <label>👨‍💼 Principal:
-        <input type="text" name="Principal${machineCount}" />
-      </label>
-
-      <label>🧰 Hardware Version:
-        <input type="text" name="Hardware${machineCount}" />
-      </label>
-
-      <label>💻 Software Version:
-        <input type="text" name="Software${machineCount}" />
-      </label>
-
       <label>🔢 Serial Number:
         <input type="text" name="Serial${machineCount}" required />
       </label>
-      
+
       <label>🔍 Scanned QR ID:
         <input type="text" id="${qrResultId}" readonly />
       </label>
 
       <div id="${qrReaderId}" style="width: 100%; margin-top: 10px;"></div>
       <button type="button" onclick="startQRScan('${qrReaderId}', '${qrResultId}')">📷 Scan QR Code</button>
+
+      <label>✏️ Manual QR ID (if scan fails):
+        <input type="text" id="${qrManualId}" name="ManualQR${machineCount}" />
+      </label>
     `;
 
     machineContainer.appendChild(block);
     machineCount++;
-    showToast("✅ New Equipment block displayed");
+    showToast("✅ Equipment block added");
   }
 
   // 📷 QR Scan Logic (per block)
@@ -75,8 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
       { fps: 10, qrbox: 250 },
       qrCodeMessage => {
         document.getElementById(resultId).value = qrCodeMessage;
-        qrScanner.stop();
-        showToast("🔍 QR scanned");
+        qrScanner.stop().then(() => {
+          document.getElementById(readerId).innerHTML = ""; // Collapse scanner
+          showToast("🔍 QR scanned and scanner closed");
+        });
       },
       error => {
         console.warn("QR scan error:", error);
