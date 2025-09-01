@@ -10,7 +10,7 @@ body {
 /* 📱 Mobile Tweaks */
 @media (max-width: 600px) {
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
   }
 
   input, select {
