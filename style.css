@@ -1,0 +1,93 @@
+/* Base Reset */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7faff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main Container */
+main {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 80, 160, 0.1);
+}
+
+/* Headings */
+h2, h3 {
+  color: #2b9cfb;
+  margin-bottom: 10px;
+}
+
+/* Labels and Inputs */
+label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  background-color: #2b9cfb;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1a7edb;
+}
+
+/* Machine Block Styling */
+.machine-block {
+  background-color: #e6f2f8;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border-left: 4px solid #2b9cfb;
+}
+
+/* Toast Feedback */
+#toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2b9cfb;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: bold;
+  display: none;
+  z-index: 1000;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  main {
+    padding: 15px;
+  }
+
+  button {
+    width: 100%;
+  }
+}
