@@ -71,35 +71,40 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("✅ Equipment block added");
   }
 
-  // 📷 QR Scan Logic
-  window.startQRScan = function (readerId, resultId) {
-    const qrScanner = new Html5Qrcode(readerId);
-    qrScanner.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      qrCodeMessage => {
-        document.getElementById(resultId).value = qrCodeMessage;
-        qrScanner.stop().then(() => {
-          document.getElementById(readerId).innerHTML = "";
-          showToast("🔍 QR scanned and scanner closed");
-        });
-      },
-      error => {
-        console.warn("QR scan error:", error);
-        showToast("⚠️ QR scan failed");
-      }
-    );
-  };
+// 📷 QR Scan Logic using Html5QrcodeScanner
+window.startQRScan = function (readerId, resultId) {
+  const scanner = new Html5QrcodeScanner(readerId, {
+    fps: 10,
+    qrbox: 250,
+    rememberLastUsedCamera: true,
+    showTorchButtonIfSupported: true,
+    aspectRatio: 1.5
+  });
+
+  scanner.render(
+    qrCodeMessage => {
+      document.getElementById(resultId).value = qrCodeMessage;
+      scanner.clear(); // Stop and remove scanner UI
+      showToast("✅ QR scanned successfully");
+    },
+    errorMessage => {
+      // Suppress flickering by ignoring repeated errors
+      console.warn("QR scan error:", errorMessage);
+    }
+  );
+};
+
 
   // 🔔 Toast Feedback
-  function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
-    toast.style.display = "block";
-    setTimeout(() => {
-      toast.style.display = "none";
-    }, 2000);
-  }
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
+}
+
 
   // 🧠 Bind Events
   addMachineBtn.addEventListener("click", addMachineBlock);
