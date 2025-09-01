@@ -22,6 +22,14 @@ label {
 width: 50%;
 }
 
+.customer-width {
+width: 65%;
+}
+
+.engineer-width {
+width: 65%;
+}
+
 input {
   width: 100%;
   padding: 0.5rem;
