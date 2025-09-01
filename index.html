@@ -134,6 +134,10 @@
       width: 65%;
     }
 
+    .engineer-width {
+      width: 65%;
+    }
+
     .address-width {
       width: 85%;
     }
@@ -204,12 +208,16 @@
          <h3 style="text-align: center; margin-top: 1; margin-bottom: 20px; color: #3b5998;">💻 HistoTrace updation</h3>   
      
       <label>✒️ Customer Name:</label>
-        <input type="text" id="customername" readonly class="Customer-Width" style="width: 140px;" maxlength="8" />
+        <input type="text" id="customername" class="Customer-Width" />
 
       <label>✒️ Address:</label>
-      <input type="text" id="customeraddress" readonly class="address-Width" style="width: 140px;" maxlength="8" />
+      <input type="text" id="customeraddress" class="address-Width" />
 
-        
+      <label>✒️ Engineer:</label>
+      <input type="text" id="EngineerName" class="engineer-Width" />
+
+      <label>✒️ Installation Date:</label>
+      <input type="text" id="customeraddress" class="date-Width" />
         </select>
 
 <!-- 📦 Scanned QR ID Field -->
