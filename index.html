@@ -1,348 +1,146 @@
-<!-- HistoTrace.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>iStock</title>
-  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-
-  <!-- Android App Settings -->
-  <link rel="manifest" href="manifest.json" />
-
-  <!-- iOS App Settings -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="istock" />
-  <link rel="apple-touch-icon" href="mini.png" />
-
-  <style>
-  #toast {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #493320;
-    color: white;
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-weight: bold;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    z-index: 9999;
-  }
-</style>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    .biscuit-bg {
-      background-color: #FFEBCD;
-      border: 1px solid #ccc;
-      width: 80px;
-    }
-    
-    .readonly-field {
-      background-color: #FFEBCD;
-      border: 1px solid #ccc;
-      width: 80px;
-    }
-
-    .error {
-      color: #b00020;
-      background-color: #ffe6e6;
-      padding: 10px;
-      border-radius: 6px;
-      margin-top: 10px;
-    }
-
-    .container {
-      max-width: 600px;
-      margin: 20px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    @keyframes logoReveal {
-      0% {
-        opacity: 0;
-        transform: scale(0.85);
-      }
-      100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
-    .top-logo {
-      width: 25%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
-      animation: logoReveal 0.8s ease-out forwards;
-    }
-
-    .logo {
-      display: block;
-      margin: 0 auto 30px;
-      max-width: 180px;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s ease;
-    }
-
-    .logo:hover {
-      transform: scale(1.05);
-    }
-
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 10px;
-    }
-
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 8px; /* Adjust spacing as needed */
-    }
-
-    input, select, textarea {
-      margin-bottom: 16px;
-      width: 100%;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-    }
-
-    .date-width {
-      width: 50%;
-    }
-
-    .customer-width {
-      width: 65%;
-    }
-
-    .engineer-width {
-      width: 65%;
-    }
-
-    .address-width {
-      width: 85%;
-    }
-    
-    .half-width {
-      width: 50%;
-    }
-
-    .three-quarter-width {
-      width: 75%;
-    }
-
-    button {
-      margin-top: 20px;
-      width: 200px;
-      padding: 10px;
-      background-color: #2980b9;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    button:hover {
-      background-color: #1c5980;
-      transform: scale(1.03);
-    }
-
-    .success {
-      text-align: center;
-      color: green;
-      margin-top: 15px;
-    }
-
-    .error {
-      text-align: center;
-      color: red;
-      margin-top: 15px;
-    }
-
-    @media screen and (max-width: 600px) {
-      .container {
-        margin: 10px;
-        padding: 20px;
-      }
-
-      input, select, textarea {
-        font-size: 16px;
-      }
-
-      button {
-        width: 100%;
-      }
-    }
-  </style>
+  <title>🧬 HistoTrace Installation Form</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/html5-qrcode" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="container">
-    <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
+  <main style="max-width: 600px; margin: auto; padding: 20px;">
+    <h2>🧪 HistoTrace Installation Form</h2>
 
-    <div id="toast" style="display: none;"></div>
+    <label>👤 Customer Name:
+      <input type="text" name="customerName" required />
+    </label>
 
-      <form id="HistoForm" method="POST" action="https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec">
-        
-        <input type="hidden" name="formType" value="histo" />
-         <h3 style="text-align: center; margin-top: 1; margin-bottom: 20px; color: #3b5998;">💻 HistoTrace updation</h3>   
-     
-      <label>✒️ Customer Name:</label>
-        <input type="text" id="customername" class="Customer-Width" />
+    <label>📍 Address:
+      <input type="text" name="address" required />
+    </label>
 
-      <label>✒️ Address:</label>
-      <input type="text" id="customeraddress" class="address-Width" />
+    <label>👨‍🔧 Engineer:
+      <input type="text" name="engineer" required />
+    </label>
 
-      <label>✒️ Engineer:</label>
-      <input type="text" id="EngineerName" class="engineer-Width" />
+    <label>📅 Installation Date:
+      <input type="date" name="installationDate" required />
+    </label>
 
-      <label>✒️ Installation Date:</label>
-      <input type="text" id="customeraddress" class="date-Width" />
-        </select>
+    <label>🔍 Scanned QR ID:
+      <input type="text" id="qrResult" readonly />
+    </label>
 
-<!-- 📦 Scanned QR ID Field -->
-<div style="margin-top: 10px;">
-  <label for="qr-result">Scanned QR ID:</label>
-  <small style="color: grey; display: block; margin-top: 6px; margin-bottom: 10px;">This is an optional field</small>
-  <input
-    type="text"
-    id="qr-result"
-    name="qr-result"
-    readonly
-    style="font-weight: bold; background: #f0f0f0;"
-  />
-</div>
+    <div id="qr-reader" style="width: 100%; margin-top: 10px;"></div>
+    <button onclick="startQRScan()">📷 Scan QR Code</button>
 
-<!-- 📷 QR Scanner UI -->
-<div class="container" style="margin-top: 20px;">
-  <h3>Scan QR Codes</h3>
-  <div class="section">
-    <div id="my-qr-reader"></div>
-  </div>
-</div>
+    <hr />
 
-<!-- 📜 QR Scanner Script -->
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-<script>
-  function domReady(fn) {
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-      setTimeout(fn, 1000);
-    } else {
-      document.addEventListener("DOMContentLoaded", fn);
-    }
-  }
-
-
-  
-
-      <!-- ➕ Add Machine Button -->
-      <div style="text-align: center;">
-        <button type="button" id="addMachineBtn" class="istos-btn add-machine-btn">➕ Add Equipment</button>
-      </div>
-      
-      </section>
-      <!-- 📦 Machine Block Container -->
-      <section id="machineSection">
-        <h2>🛠️ Equipment Installed</h2>
-        <div id="machineContainer"></div>
-      
-      <button type="submit">✅ Submit Record</button>
-    </form>
-
-    <div id="toast" class="hidden">Record submitted!</div>
+    <h3>🛠️ Machines Installed</h3>
+    <div id="machineBlocks"></div>
+    <button onclick="addMachineBlock()">➕ Add Machine Block</button>
   </main>
 
+
+document.addEventListener("DOMContentLoaded", () => {
+  let machineCount = 0;
+
+  window.addMachineBlock = function () {
+    machineCount++;
+    const block = document.createElement("div");
+    block.className = "machine-block";
+    block.innerHTML = `
+      <label>🧪 Instrument Type:
+        <select name="InstrumentType${machineCount}" required>
+          <option value="" disabled selected>Select instrument</option>
+          <option value="Automated Slide Stainer">Automated Slide Stainer</option>
+          <option value="Automated Tissue Processor">Automated Tissue Processor</option>
+          <option value="Bane Saw Machine">Bane Saw Machine</option>
+          <option value="Cryostat Microtome">Cryostat Microtome</option>
+          <option value="Grossing station">Grossing station</option>
+          <option value="Rotary Microtome">Rotary Microtome</option>
+          <option value="Tissue Embedding Station">Tissue Embedding Station</option>
+          <option value="Water Baths">Water Baths</option>
+        </select>
+      </label>
+      <label>🔢 Serial Number:
+        <input type="text" name="Serial${machineCount}" required />
+      </label>
+      <label>📦 Model:
+        <input type="text" name="Model${machineCount}" />
+      </label>
+      <hr />
+    `;
+    document.getElementById("machineBlocks").appendChild(block);
+  };
+
+  window.startQRScan = function () {
+    const qrScanner = new Html5Qrcode("qr-reader");
+    qrScanner.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
+      qrCodeMessage => {
+        document.getElementById("qrResult").value = qrCodeMessage;
+        qrScanner.stop();
+      },
+      errorMessage => {
+        console.warn("QR scan error:", errorMessage);
+      }
+    );
+  };
+});
+
+
 <script>
-let machineCount = 0;
-const maxMachines = 10;
+  document.addEventListener("DOMContentLoaded", () => {
+  let machineCount = 0;
 
-function addMachineBlock() {
-  if (machineCount >= maxMachines) {
-    alert("Max 10 machines allowed.");
-    return;
-  }
+  window.addMachineBlock = function () {
+    machineCount++;
+    const block = document.createElement("div");
+    block.className = "machine-block";
+    block.innerHTML = `
+      <label>🧪 Instrument Type:
+        <select name="InstrumentType${machineCount}" required>
+          <option value="" disabled selected>Select instrument</option>
+          <option value="Automated Slide Stainer">Automated Slide Stainer</option>
+          <option value="Automated Tissue Processor">Automated Tissue Processor</option>
+          <option value="Bane Saw Machine">Bane Saw Machine</option>
+          <option value="Cryostat Microtome">Cryostat Microtome</option>
+          <option value="Grossing station">Grossing station</option>
+          <option value="Rotary Microtome">Rotary Microtome</option>
+          <option value="Tissue Embedding Station">Tissue Embedding Station</option>
+          <option value="Water Baths">Water Baths</option>
+        </select>
+      </label>
+      <label>🔢 Serial Number:
+        <input type="text" name="Serial${machineCount}" required />
+      </label>
+      <label>📦 Model:
+        <input type="text" name="Model${machineCount}" />
+      </label>
+      <hr />
+    `;
+    document.getElementById("machineBlocks").appendChild(block);
+  };
 
-  const container = document.getElementById("machineContainer");
-  const block = document.createElement("div");
-  block.className = "machine-block";
-  block.style.marginBottom = "20px";
+  window.startQRScan = function () {
+    const qrScanner = new Html5Qrcode("qr-reader");
+    qrScanner.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
+      qrCodeMessage => {
+        document.getElementById("qrResult").value = qrCodeMessage;
+        qrScanner.stop();
+      },
+      errorMessage => {
+        console.warn("QR scan error:", errorMessage);
+      }
+    );
+  };
+});
 
-  block.innerHTML = `
-    <label>🛠️ Machine Type:
-      <select name="machineType${machineCount}" required>
-        <option value="" disabled selected>Select machine</option>
-        <option value="Automated Slide Stainer">Automated Slide Stainer</option>
-        <option value="Automated Tissue Processor">Automated Tissue Processor</option>
-        <option value="Bane Saw Machine">Bane Saw Machine</option>
-        <option value="Cryostat Microtome">Cryostat Microtome</option>
-        <option value="Grossing station">Grossing station</option>
-        <option value="Rotary Microtome">Rotary Microtome</option>
-        <option value="Tissue Embedding Station">Tissue Embedding Station</option>
-        <option value="Water Baths">Water Baths</option>
-      </select>
-    </label>
-
-    <label>✒️ Instrument Type:
-      <input type="text" name="InstrumentType${machineCount}" />
-    </label>
-
-    <label>✒️ Model:
-      <input type="text" name="ModelNumber${machineCount}" />
-    </label>
-
-    <label>✒️ Serial Number:
-      <input type="text" name="SerialNumber${machineCount}" />
-    </label>
-
-    <label>✒️ Principal:
-      <input type="text" name="Principal${machineCount}" />
-    </label>
-
-    <label>✒️ Hardware Version:
-      <input type="text" name="HardwareVersion${machineCount}" />
-    </label>
-
-    <label>✒️ Software Version:
-      <input type="text" name="SoftwareVersion${machineCount}" />
-    </label>
-  `;
-
-  container.appendChild(block);
-  machineCount++;
-
-  showToast("🧩 Equipment block added");
-}
-
-document.getElementById("addMachineBtn").addEventListener("click", addMachineBlock);
-
-function showToast(message) {
-  const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.style.display = "block";
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 2000);
-}
 </script>
-
+</body>
 </html>
