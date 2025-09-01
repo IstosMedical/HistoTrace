@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HistoTrace - Machine Installation</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <h1>🧪 HistoTrace Installation Form</h1>
+
+    <form id="installForm">
+      <label>Client Name:
+        <input type="text" name="clientName" required />
+      </label>
+
+      <label>Engineer Name:
+        <input type="text" name="engineerName" required />
+      </label>
+
+      <label>Installation Date:
+        <input type="date" name="installDate" required />
+      </label>
+
+      <section id="machineSection">
+        <h2>🛠️ Machines Installed</h2>
+        <div id="machineContainer"></div>
+        <button type="button" id="addMachineBtn">➕ Add Machine</button>
+      </section>
+
+      <button type="submit">✅ Submit Record</button>
+    </form>
+
+    <div id="toast" class="hidden">Record submitted!</div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
