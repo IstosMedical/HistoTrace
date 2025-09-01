@@ -11,26 +11,26 @@
 <body>
 
 <main>
-  <h2 style="text-align: center; margin-bottom: 20px;">🧬 HistoTrace System</h2>
+<form id="installForm">
+  <label>👤 Customer Name:
+    <input type="text" name="customerName" required style="width: 75%;" />
+  </label>
 
-  <form id="installForm">
-    <label>👤 Customer Name:
-      <input type="text" name="customerName" required style="width: 75%; />
-    </label>
+  <label>📍 Address:
+    <input type="text" name="address" required style="width: 75%;" />
+  </label>
 
-    <label>📍 Address:
-      <input type="text" name="address" required />
-    </label>
+  <label>👨‍🔧 Engineer:
+    <input type="text" name="engineer" required style="width: 75%;" />
+  </label>
 
-    <label>👨‍🔧 Engineer:
-      <input type="text" name="engineer" required style="width: 75%; />
-    </label>
+  <label>📅 Installation Date:
+    <input type="date" name="installationDate" required style="width: 50%;" />
+  </label>
+</form>
 
-    <label>📅 Installation Date:
-        <input type="date" name="installationDate" required style="width: 50%;" />
-    </label>
-
-    <hr />
+<!-- 🔸 Subtle Divider -->
+<hr style="border: none; border-top: 1px dashed #ccc; margin: 20px 0;" />
 
     <section id="machineSection">
       <h3>🛠️ Record New Equipment</h3>
