@@ -14,7 +14,7 @@ body {
   }
 
   input, select {
-    margin-top: 8px;
+    margin-top: 6px;
   }
 
   main {
@@ -105,15 +105,15 @@ input, select {
   border: 1px solid #ccc;
   border-radius: 6px;
   margin-top: 5px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   box-sizing: border-box;
 }
 
 /* 🧾 Taller Input for Address */
 .tall-input {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  font-size: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
 }
 
 /* 🔘 Buttons */
