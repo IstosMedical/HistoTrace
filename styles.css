@@ -31,11 +31,11 @@ button {
 }
 
 .machine-block {
+  background-color: #00b4d8; /* ISTOS blue */
   border: 1px solid #ddd;
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 6px;
-  background: #f0f8ff;
 }
 
 #toast {
@@ -66,5 +66,35 @@ button {
 .istos-btn:hover {
   background-color: #1c5980;
   transform: scale(1.03);
+}
+
+#installForm button[type="submit"] {
+  background-color: #9CDDE2; /* Soft cyan */
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#installForm button[type="submit"]:hover {
+  background-color: #7ccfd2;
+}
+
+select {
+  height: 40px;
+  font-size: 15px;
+  padding: 6px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+h2 {
+  background-color: #00b4d8;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
 }
 
