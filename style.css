@@ -10,24 +10,29 @@ body {
 /* 📱 Mobile Tweaks */
 @media (max-width: 600px) {
   .form-group {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  input, select {
+    margin-top: 8px;
+  }
+
+  main {
+    padding: 15px;
   }
 
   button {
     width: 100%;
   }
-
-.form-group {
-  margin-bottom: 16px;
-  }
+}
 
 /* 🧩 Form Layout */
 #installForm {
   background-color: #fff;
-  padding: 10px;
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 12px;
+  margin-bottom: 30px;
 }
 
 /* 🧬 Logo Styling */
@@ -74,7 +79,7 @@ body {
 main {
   max-width: 600px;
   margin: auto;
-  padding: 5px;
+  padding: 20px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 80, 160, 0.1);
@@ -86,14 +91,28 @@ h2, h3 {
   margin-bottom: 10px;
 }
 
+/* 🖊️ Labels & Inputs */
+label {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
 input, select {
   width: 100%;
-  padding: 12px 10px; /* Adds breathing room inside fields */
+  padding: 10px;
   font-size: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  margin-top: 5px;
   box-sizing: border-box;
-  margin-top: 4px; /* Tighter spacing below label */
+}
+
+/* 🧾 Taller Input for Address */
+.tall-input {
+  padding-top: 16px;
+  padding-bottom: 16px;
+  font-size: 16px;
 }
 
 /* 🔘 Buttons */
@@ -116,9 +135,9 @@ button:hover {
 /* 🛠️ Equipment Block */
 .machine-block {
   background-color: #e6f2f8;
-  padding: 12px;
+  padding: 15px;
   border-radius: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   border-left: 4px solid #2b9cfb;
 }
 
