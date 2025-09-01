@@ -95,6 +95,7 @@ h2, h3 {
 label {
   display: block;
   margin-bottom: 15px;
+  padding-bottom: 1px;
   font-weight: 500;
 }
 
@@ -108,12 +109,6 @@ input, select {
   box-sizing: border-box;
 }
 
-/* 🧾 Taller Input for Address */
-.tall-input {
-  padding-top: 16px;
-  padding-bottom: 16px;
-  font-size: 16px;
-}
 
 /* 🔘 Buttons */
 button {
