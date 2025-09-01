@@ -18,7 +18,7 @@ body {
   }
 
   main {
-    padding: 15px;
+    padding: 10px;
   }
 
   button {
@@ -29,10 +29,10 @@ body {
 /* 🧩 Form Layout */
 #installForm {
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 /* 🧬 Logo Styling */
@@ -79,7 +79,7 @@ body {
 main {
   max-width: 600px;
   margin: auto;
-  padding: 20px;
+  padding: 10px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 80, 160, 0.1);
@@ -94,7 +94,7 @@ h2, h3 {
 /* 🖊️ Labels & Inputs */
 label {
   display: block;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding-bottom: 1px;
   font-weight: 500;
 }
@@ -130,9 +130,9 @@ button:hover {
 /* 🛠️ Equipment Block */
 .machine-block {
   background-color: #e6f2f8;
-  padding: 15px;
+  padding: 10px;
   border-radius: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border-left: 4px solid #2b9cfb;
 }
 
