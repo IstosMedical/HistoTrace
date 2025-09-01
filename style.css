@@ -16,7 +16,10 @@ body {
   button {
     width: 100%;
   }
-}
+
+.form-group {
+  margin-bottom: 16px;
+  }
 
 /* 🧩 Form Layout */
 #installForm {
@@ -84,12 +87,13 @@ h2, h3 {
 }
 
 input, select {
-  height: 48px; /* Or any value that suits your layout */
+  width: 100%;
+  padding: 12px 10px; /* Adds breathing room inside fields */
   font-size: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  margin-top: 10px;
   box-sizing: border-box;
+  margin-top: 4px; /* Tighter spacing below label */
 }
 
 /* 🔘 Buttons */
