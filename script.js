@@ -12,8 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const blockId = `machineBlock${machineCount}`;
+    const qrResultId = `qrResult${machineCount}`;
+    const qrReaderId = `qrReader${machineCount}`;
+
     const block = document.createElement("div");
     block.className = "machine-block";
+    block.id = blockId;
     block.innerHTML = `
       <label>🧪 Instrument Type:
         <select name="InstrumentType${machineCount}" required>
@@ -33,10 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" name="Model${machineCount}" />
       </label>
 
-      <label>🔢 Serial Number:
-        <input type="text" name="Serial${machineCount}" required />
-      </label>
-
       <label>👨‍💼 Principal:
         <input type="text" name="Principal${machineCount}" />
       </label>
@@ -48,6 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
       <label>💻 Software Version:
         <input type="text" name="Software${machineCount}" />
       </label>
+
+      <label>🔢 Serial Number:
+        <input type="text" name="Serial${machineCount}" required />
+      </label>
+      
+      <label>🔍 Scanned QR ID:
+        <input type="text" id="${qrResultId}" readonly />
+      </label>
+
+      <div id="${qrReaderId}" style="width: 100%; margin-top: 10px;"></div>
+      <button type="button" onclick="startQRScan('${qrReaderId}', '${qrResultId}')">📷 Scan QR Code</button>
     `;
 
     machineContainer.appendChild(block);
@@ -55,14 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("✅ Equipment block added");
   }
 
-  // 📷 QR Scan Logic
-  function startQRScan() {
-    const qrScanner = new Html5Qrcode("qr-reader");
+  // 📷 QR Scan Logic (per block)
+  window.startQRScan = function (readerId, resultId) {
+    const qrScanner = new Html5Qrcode(readerId);
     qrScanner.start(
       { facingMode: "environment" },
       { fps: 10, qrbox: 250 },
       qrCodeMessage => {
-        document.getElementById("qrResult").value = qrCodeMessage;
+        document.getElementById(resultId).value = qrCodeMessage;
         qrScanner.stop();
         showToast("🔍 QR scanned");
       },
@@ -71,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
         showToast("⚠️ QR scan failed");
       }
     );
-  }
+  };
 
   // 🔔 Toast Feedback
   function showToast(message) {
@@ -85,5 +97,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🧠 Event Bindings
   addMachineBtn.addEventListener("click", addMachineBlock);
-  window.startQRScan = startQRScan;
 });
