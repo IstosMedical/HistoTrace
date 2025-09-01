@@ -3,144 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🧬 HistoTrace Installation Form</title>
+  <title>🧬 HistoTrace System</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://unpkg.com/html5-qrcode" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
-  <main style="max-width: 600px; margin: auto; padding: 20px;">
-    <h2>🧪 HistoTrace Installation Form</h2>
+  <main>
+    <h3> HistoTrace Installation Form</h3>
 
-    <label>👤 Customer Name:
-      <input type="text" name="customerName" required />
-    </label>
+    <form id="installForm">
+      <label>👤 Customer Name:
+        <input type="text" name="customerName" required />
+      </label>
 
-    <label>📍 Address:
-      <input type="text" name="address" required />
-    </label>
+      <label>📍 Address:
+        <input type="text" name="address" required />
+      </label>
 
-    <label>👨‍🔧 Engineer:
-      <input type="text" name="engineer" required />
-    </label>
+      <label>👨‍🔧 Engineer:
+        <input type="text" name="engineer" required />
+      </label>
 
-    <label>📅 Installation Date:
-      <input type="date" name="installationDate" required />
-    </label>
+      <label>📅 Installation Date:
+        <input type="date" name="installationDate" required />
+      </label>
 
-    <label>🔍 Scanned QR ID:
-      <input type="text" id="qrResult" readonly />
-    </label>
+      <label>🔍 Scanned QR ID:
+        <input type="text" id="qrResult" readonly />
+      </label>
 
-    <div id="qr-reader" style="width: 100%; margin-top: 10px;"></div>
-    <button onclick="startQRScan()">📷 Scan QR Code</button>
+      <div id="qr-reader" style="width: 100%; margin-top: 10px;"></div>
+      <button type="button" onclick="startQRScan()">📷 Scan QR Code</button>
 
-    <hr />
+      <hr />
 
-    <h3>🛠️ Machines Installed</h3>
-    <div id="machineBlocks"></div>
-    <button onclick="addMachineBlock()">➕ Add Machine Block</button>
+      <section id="machineSection">
+        <h3>🛠️ Equipment Installed</h3>
+        <div id="machineContainer"></div>
+
+        <div style="text-align: center;">
+          <button type="button" id="addMachineBtn" class="istos-btn add-machine-btn">➕ Add Equipment</button>
+        </div>
+      </section>
+
+      <button type="submit">✅ Submit Record</button>
+    </form>
+
+    <div id="toast" class="hidden">Record submitted!</div>
   </main>
-
-
-document.addEventListener("DOMContentLoaded", () => {
-  let machineCount = 0;
-
-  window.addMachineBlock = function () {
-    machineCount++;
-    const block = document.createElement("div");
-    block.className = "machine-block";
-    block.innerHTML = `
-      <label>🧪 Instrument Type:
-        <select name="InstrumentType${machineCount}" required>
-          <option value="" disabled selected>Select instrument</option>
-          <option value="Automated Slide Stainer">Automated Slide Stainer</option>
-          <option value="Automated Tissue Processor">Automated Tissue Processor</option>
-          <option value="Bane Saw Machine">Bane Saw Machine</option>
-          <option value="Cryostat Microtome">Cryostat Microtome</option>
-          <option value="Grossing station">Grossing station</option>
-          <option value="Rotary Microtome">Rotary Microtome</option>
-          <option value="Tissue Embedding Station">Tissue Embedding Station</option>
-          <option value="Water Baths">Water Baths</option>
-        </select>
-      </label>
-      <label>🔢 Serial Number:
-        <input type="text" name="Serial${machineCount}" required />
-      </label>
-      <label>📦 Model:
-        <input type="text" name="Model${machineCount}" />
-      </label>
-      <hr />
-    `;
-    document.getElementById("machineBlocks").appendChild(block);
-  };
-
-  window.startQRScan = function () {
-    const qrScanner = new Html5Qrcode("qr-reader");
-    qrScanner.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      qrCodeMessage => {
-        document.getElementById("qrResult").value = qrCodeMessage;
-        qrScanner.stop();
-      },
-      errorMessage => {
-        console.warn("QR scan error:", errorMessage);
-      }
-    );
-  };
-});
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-  let machineCount = 0;
-
-  window.addMachineBlock = function () {
-    machineCount++;
-    const block = document.createElement("div");
-    block.className = "machine-block";
-    block.innerHTML = `
-      <label>🧪 Instrument Type:
-        <select name="InstrumentType${machineCount}" required>
-          <option value="" disabled selected>Select instrument</option>
-          <option value="Automated Slide Stainer">Automated Slide Stainer</option>
-          <option value="Automated Tissue Processor">Automated Tissue Processor</option>
-          <option value="Bane Saw Machine">Bane Saw Machine</option>
-          <option value="Cryostat Microtome">Cryostat Microtome</option>
-          <option value="Grossing station">Grossing station</option>
-          <option value="Rotary Microtome">Rotary Microtome</option>
-          <option value="Tissue Embedding Station">Tissue Embedding Station</option>
-          <option value="Water Baths">Water Baths</option>
-        </select>
-      </label>
-      <label>🔢 Serial Number:
-        <input type="text" name="Serial${machineCount}" required />
-      </label>
-      <label>📦 Model:
-        <input type="text" name="Model${machineCount}" />
-      </label>
-      <hr />
-    `;
-    document.getElementById("machineBlocks").appendChild(block);
-  };
-
-  window.startQRScan = function () {
-    const qrScanner = new Html5Qrcode("qr-reader");
-    qrScanner.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      qrCodeMessage => {
-        document.getElementById("qrResult").value = qrCodeMessage;
-        qrScanner.stop();
-      },
-      errorMessage => {
-        console.warn("QR scan error:", errorMessage);
-      }
-    );
-  };
-});
-
-</script>
 </body>
 </html>
+
