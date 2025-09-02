@@ -122,14 +122,15 @@ document.getElementById("installForm").addEventListener("submit", function (e) {
     method: "POST",
     body: payload
   })
-  .then(response => response.text())
-  .then(data => {
-    showToast(data); // ✅ Feedback
-    this.reset();    // Optional: clear form
-  })
-  .catch(error => {
-    console.error("Submission error:", error);
-    showToast("⚠️ Submission failed");
-  });
+    .then(response => response.text())
+    .then(data => {
+      showToast(data); // ✅ Feedback to user
+      this.reset();    // Optional: clear form
+    })
+    .catch(error => {
+      console.error("Submission error:", error);
+      showToast("⚠️ Submission failed");
+    });
 });
+
 
