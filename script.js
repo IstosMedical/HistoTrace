@@ -25,6 +25,14 @@ function createMachineBlock(index) {
         </select>
       </label>
 
+      <label>🛡️ Warranty Period:</label>
+        <select name="warranty" required class="half-width">
+          <option value="" disabled selected>Duration</option>
+          <option value="1 Year">1 Year</option>
+          <option value="2 Years">2 Years</option>
+          <option value="3 Years>3 Years</option>
+        </select>
+        
       <label for="model${index}">Model</label>
       <input type="text" id="model${index}" name="model[]" class="quarter-width" />
 
