@@ -1,3 +1,14 @@
+const raw = e.postData.contents;
+const pairs = raw.split("&");
+const data = {};
+
+pairs.forEach(pair => {
+  const [key, value] = pair.split("=");
+  const decodedKey = decodeURIComponent(key.replace(/\+/g, " "));
+  const decodedValue = decodeURIComponent((value || "").replace(/\+/g, " "));
+  data[decodedKey] = decodedValue;
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const MAX_MACHINES = 10;
   let machineCount = 0;
