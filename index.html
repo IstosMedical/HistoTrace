@@ -11,23 +11,24 @@
 </head>
 <body>
   <div class="container">
-    <!-- Logo Animation -->
+    <!-- Logo + Title Centered -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
+      <h3 style="margin-top: 0; margin-bottom: 20px; color: #3b5998;">⚙️ HISTOPATH</h3>
+      <div id="spinner" style="display: none; margin-top: 10px;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading..." width="30" />
+      </div>
+    </div>
+
+    <!-- Form Starts -->
     <main>
       <form id="installForm">
-        <!-- 🧬 ISTOS Logo -->
-        <div style="text-align: center; margin-bottom: 20px;">
-          <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
-          
-          <h3 style="text-align: center; margin-top: 1; margin-bottom: 20px; color: #3b5998;">⚙️ HISTOPATH</h3>
-        <div id="spinner" style="display: none; text-align: center; margin-top: 10px;">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading..." width="30" />
-        </div>
-                
+        <!-- Left-aligned Form Fields -->
         <div class="form-group">
           <label for="installationDate">📅 Installation Date:</label>
           <input type="date" id="installationDate" name="installationDate" required class="half-width" />
         </div>
-
+                
         <div class="form-group">
           <label for="customerName">👤 Customer Name:</label>
           <input type="text" id="customerName" name="customerName" required class="three-quarter" />
