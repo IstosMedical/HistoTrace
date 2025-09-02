@@ -70,7 +70,7 @@ function createMachineBlock(index) {
           <option value="" disabled selected>Duration</option>
           <option value="1 Year">1 Year</option>
           <option value="2 Years">2 Years</option>
-          <option value="3 Years>3 Years</option>
+          <option value="3 Years">3 Years</option>
         </select>
         
       <label for="model${index}">Model</label>
