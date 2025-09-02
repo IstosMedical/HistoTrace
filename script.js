@@ -26,11 +26,11 @@ function createMachineBlock(index) {
       </label>
 
       <label>🛡️ Warranty Period:</label>
-        <select name="warranty" required class="half-width">
+        <select name="warranty[]" required>
           <option value="" disabled selected>Duration</option>
           <option value="1 Year">1 Year</option>
           <option value="2 Years">2 Years</option>
-          <option value="3 Years>3 Years</option>
+          <option value="3 Years">3 Years</option>
         </select>
         
       <label for="model${index}">Model</label>
@@ -48,7 +48,7 @@ function createMachineBlock(index) {
       </label>
 
        <label>🔤 Remarks: (Optional field)</label>
-        <textarea name="remarks" rows="2" placeholder="Add any relevant notes..."></textarea>
+        <textarea name="remarks[]" rows="2" placeholder="Add any relevant notes..."></textarea>
     </div>
   `;
 }
