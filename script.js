@@ -164,7 +164,3 @@ document.addEventListener("DOMContentLoaded", () => {
         hideSpinner();
       });
   });
-
-  // 🧱 Add Block Button
-  addMachineBtn.addEventListener("click", addMachineBlock);
-});
