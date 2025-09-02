@@ -1,77 +1,93 @@
-const raw = e.postData.contents;
-const pairs = raw.split("&");
-const data = {};
+// 🌐 Parse POST Data
+function parsePostData(e) {
+  const raw = e.postData.contents || "";
+  return raw.split("&").reduce((acc, pair) => {
+    const [key, value = ""] = pair.split("=");
+    const decodedKey = decodeURIComponent(key.replace(/\+/g, " "));
+    const decodedValue = decodeURIComponent(value.replace(/\+/g, " "));
+    acc[decodedKey] = decodedValue;
+    return acc;
+  }, {});
+}
 
-pairs.forEach(pair => {
-  const [key, value] = pair.split("=");
-  const decodedKey = decodeURIComponent(key.replace(/\+/g, " "));
-  const decodedValue = decodeURIComponent((value || "").replace(/\+/g, " "));
-  data[decodedKey] = decodedValue;
-});
+// 🧩 Equipment Block Template
+function createMachineBlock(index) {
+  return `
+    <div class="machine-block">
+      <label>🧪 Instrument Type:
+        <select name="InstrumentType${index}" required>
+          <option value="" disabled selected>Select instrument</option>
+          ${getInstrumentOptions()}
+        </select>
+      </label>
 
+      <label for="model${index}">Model</label>
+      <input type="text" id="model${index}" name="model${index}" class="quarter-width" />
+
+      <label>🔍 Scan QR ID / fetch serial number:
+        <input type="text" id="qrResult${index}" name="qrResult${index}" readonly />
+      </label>
+
+      <div id="qrReader${index}" style="width: 100%; margin-top: 10px;"></div>
+      <button type="button" data-reader="qrReader${index}" data-result="qrResult${index}" class="scan-btn">📷 Scan QR Code</button>
+
+      <label>✏️ Manual QR ID (if scan fails):
+        <input type="text" id="qrManual${index}" name="ManualQR${index}" />
+      </label>
+    </div>
+  `;
+}
+
+// 🎛️ Instrument Dropdown Options
+function getInstrumentOptions() {
+  const instruments = [
+    "Automated Slide Stainer",
+    "Automated Tissue Processor",
+    "Bane Saw Machine",
+    "Cryostat Microtome",
+    "Grossing station",
+    "Rotary Microtome",
+    "Tissue Embedding Station",
+    "Water Baths"
+  ];
+  return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
+}
+
+// ➕ Add Equipment Block
+function addMachineBlock(container, count, max) {
+  if (count >= max) {
+    showToast("⚠️ Max 10 machines allowed");
+    return count;
+  }
+  const block = document.createElement("div");
+  block.innerHTML = createMachineBlock(count);
+  container.appendChild(block);
+  showToast("✅ Equipment block added");
+  return count + 1;
+}
+
+// 📦 DOM Ready
 document.addEventListener("DOMContentLoaded", () => {
   const MAX_MACHINES = 10;
   let machineCount = 0;
 
   const machineContainer = document.getElementById("machineContainer");
   const addMachineBtn = document.getElementById("addMachineBtn");
-  const installForm = document.getElementById("installForm");
 
-  // 🧩 Equipment Block Template
-  function createMachineBlock(index) {
-    return `
-      <div class="machine-block">
-        <label>🧪 Instrument Type:
-          <select name="InstrumentType${index}" required>
-            <option value="" disabled selected>Select instrument</option>
-            ${getInstrumentOptions()}
-          </select>
-        </label>
+  addMachineBtn?.addEventListener("click", () => {
+    machineCount = addMachineBlock(machineContainer, machineCount, MAX_MACHINES);
+  });
 
-        <label for="model${index}">Model</label>
-        <input type="text" id="model${index}" name="model${index}" class="quarter-width" />
-
-        <label>🔍 Scan QR ID / fetch serial number:
-          <input type="text" id="qrResult${index}" name="qrResult${index}" readonly />
-        </label>
-
-        <div id="qrReader${index}" style="width: 100%; margin-top: 10px;"></div>
-        <button type="button" onclick="startQRScan('qrReader${index}', 'qrResult${index}')">📷 Scan QR Code</button>
-
-        <label>✏️ Manual QR ID (if scan fails):
-          <input type="text" id="qrManual${index}" name="ManualQR${index}" />
-        </label>
-      </div>
-    `;
-  }
-
-  // 🎛️ Instrument Dropdown Options
-  function getInstrumentOptions() {
-    const instruments = [
-      "Automated Slide Stainer",
-      "Automated Tissue Processor",
-      "Bane Saw Machine",
-      "Cryostat Microtome",
-      "Grossing station",
-      "Rotary Microtome",
-      "Tissue Embedding Station",
-      "Water Baths"
-    ];
-    return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
-  }
-
-  // ➕ Add Equipment Block
-  function addMachineBlock() {
-    if (machineCount >= MAX_MACHINES) {
-      showToast("⚠️ Max 10 machines allowed");
-      return;
+  // 📷 QR Scanner Delegation
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("scan-btn")) {
+      const readerId = e.target.dataset.reader;
+      const resultId = e.target.dataset.result;
+      startQRScan(readerId, resultId);
     }
-    const block = document.createElement("div");
-    block.innerHTML = createMachineBlock(machineCount);
-    machineContainer.appendChild(block);
-    machineCount++;
-    showToast("✅ Equipment block added");
-  }
+  });
+});
+
 
   // 📷 QR Scanner Handler
   window.startQRScan = function (readerId, resultId) {
