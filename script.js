@@ -94,9 +94,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
+  // ⚙️ Spinner Helpers
+  function showSpinner() {
+    document.getElementById("spinner").style.display = "block";
+  }
+
+  function hideSpinner() {
+    document.getElementById("spinner").style.display = "none";
+  }
+
   // 📤 Form Submission Handler
   installForm.addEventListener("submit", function (e) {
     e.preventDefault();
+    showSpinner();
 
     const formData = new FormData(this);
     const payload = new URLSearchParams();
@@ -122,12 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch(error => {
         console.error("Submission error:", error);
         showToast("⚠️ Submission failed");
+      })
+      .finally(() => {
+        hideSpinner();
       });
   });
-
-  document.getElementById("submitBtn").addEventListener("click", function () {
-  document.getElementById("spinner").style.display = "inline-block";
-});
 
   // 🧱 Add Block Button
   addMachineBtn.addEventListener("click", addMachineBlock);
