@@ -104,3 +104,32 @@ function showToast(message) {
   // 🧠 Bind Events
   addMachineBtn.addEventListener("click", addMachineBlock);
 });
+
+
+
+
+document.getElementById("installForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+  const payload = new URLSearchParams();
+
+  for (const [key, value] of formData.entries()) {
+    payload.append(key, value);
+  }
+
+  fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+    method: "POST",
+    body: payload
+  })
+  .then(response => response.text())
+  .then(data => {
+    showToast(data); // ✅ Feedback
+    this.reset();    // Optional: clear form
+  })
+  .catch(error => {
+    console.error("Submission error:", error);
+    showToast("⚠️ Submission failed");
+  });
+});
+
