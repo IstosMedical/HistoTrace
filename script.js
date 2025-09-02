@@ -198,38 +198,44 @@ function resetSubmitState() {
   }
 }
 
-// 📤 Form Submission Handler
-installForm.addEventListener("submit", function (e) {
+// 📤 Form Submission Handler with Timestamp
+installForm.addEventListener("submit", async function (e) {
   e.preventDefault();
   showSubmitState();
 
-  const formData = new FormData(this);
-  const payload = new URLSearchParams();
+  try {
+    const formData = new FormData(this);
+    const payload = new URLSearchParams();
 
-  for (const [key, value] of formData.entries()) {
-    payload.append(key, value);
-  }
+    // ⏱️ Add actual timestamp
+    const timestamp = new Date().toISOString();
+    payload.append("submissionTimestamp", timestamp);
 
-  fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: payload.toString()
-  })
-    .then(response => response.text())
-    .then(data => {
-      showToast("✅ Record submitted successfully");
-      this.reset();
-      machineContainer.innerHTML = "";
-      machineCount = 0;
-    })
-    .catch(error => {
-      console.error("Submission error:", error);
-      showToast("⚠️ Submission failed. Please try again.");
-    })
-    .finally(() => {
-      resetSubmitState();
+    // 📦 Append all form fields
+    for (const [key, value] of formData.entries()) {
+      payload.append(key, value);
+    }
+
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: payload.toString()
     });
+
+    const result = await response.text();
+    showToast("✅ Record submitted successfully");
+    this.reset();
+    machineContainer.innerHTML = "";
+    machineCount = 0;
+
+  } catch (error) {
+    console.error("Submission error:", error);
+    showToast("⚠️ Submission failed. Please try again.");
+  } finally {
+    resetSubmitState();
+  }
 });
+
 
