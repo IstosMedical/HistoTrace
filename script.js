@@ -125,6 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
+  document.getElementById("submitBtn").addEventListener("click", function () {
+  document.getElementById("spinner").style.display = "inline-block";
+});
+
   // 🧱 Add Block Button
   addMachineBtn.addEventListener("click", addMachineBlock);
 });
