@@ -38,6 +38,9 @@ function createMachineBlock(index) {
       <label>✏️ Manual QR ID (if scan fails):
         <input type="text" id="qrManual${index}" name="ManualQR[]" />
       </label>
+
+       <label>🔤 Remarks: (Optional field)</label>
+        <textarea name="remarks" rows="2" placeholder="Add any relevant notes..."></textarea>
     </div>
   `;
 }
