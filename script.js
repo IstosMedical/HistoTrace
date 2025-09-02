@@ -222,6 +222,15 @@ function resetSubmitState() {
 }
 
 // 📤 Form Submission Handler with Timestamp
+
+document.getElementById("mainForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const formData = new FormData(this);
+
+  // ✅ Add this line here:
+  console.log("🛡️ Warranty values:", formData.getAll("warranty[]"));
+  
 installForm.addEventListener("submit", async function (e) {
   e.preventDefault();
   showSubmitState();
