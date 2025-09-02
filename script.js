@@ -48,7 +48,7 @@ function createMachineBlock(index) {
       </label>
 
        <label>🔤 Remarks: (Optional field)</label>
-        <textarea name="remarks[]" rows="2" placeholder="Add any relevant notes..."></textarea>
+        <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
     </div>
   `;
 }
@@ -89,7 +89,7 @@ function createMachineBlock(index) {
     </div>
 
      <label>🔤 Remarks: (Optional field)</label>
-       <textarea name="remarks" rows="2" placeholder="Add any relevant notes..."></textarea>
+       <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
     </div>
   `;
 }
