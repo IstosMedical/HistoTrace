@@ -17,6 +17,10 @@ body {
     margin-top: 6px;
   }
 
+  .full-width {
+  width: 100%;
+  }
+
   main {
     padding: 10px;
   }
