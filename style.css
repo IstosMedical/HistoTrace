@@ -35,6 +35,17 @@ body {
   margin-bottom: 30px;
 }
 
+/* 🛠️ Equipment Block */
+.machine-block {
+  background-color: #C5E8CC; /* 🌿 Soft green for clarity */
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  border-left: 4px solid #2b9cfb;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  border: 1px solid #aad7b8;
+}
+
 /* 🧬 Logo Styling */
 .top-logo {
   width: 120px;
@@ -131,15 +142,6 @@ button {
 
 button:hover {
   background-color: #1a7edb;
-}
-
-/* 🛠️ Equipment Block */
-.machine-block {
-  background-color: #e6f2f8;
-  padding: 15px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  border-left: 4px solid #2b9cfb;
 }
 
 /* 🔔 Toast Feedback */
