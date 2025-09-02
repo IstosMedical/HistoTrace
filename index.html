@@ -21,6 +21,10 @@
           <h3 style="text-align: center; margin-top: 1; margin-bottom: 20px; color: #3b5998;">⚙️ HISTOPATH</h3>
         </div>
 
+        <div id="spinner" style="display: none;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading..." width="30" />
+        </div>
+
         <div class="form-group">
           <label for="installationDate">📅 Installation Date:</label>
           <input type="date" id="installationDate" name="installationDate" required class="half-width" />
@@ -56,7 +60,7 @@
 
         <!-- ✅ Submit Button -->
         <div style="text-align: center; margin-top: 30px;">
-          <button type="submit" class="istos-btn submit-btn">✅ Submit Record</button>
+          <button id="submitBtn" type="submit">✅ Submit Record</button>
         </div>
       </form>
 
