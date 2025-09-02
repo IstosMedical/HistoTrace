@@ -146,26 +146,62 @@ window.startQRScan = function (readerId, resultId) {
 // 🍞 Toast Feedback
 function showToast(message) {
   const toast = document.getElementById("toast");
-  toast.textContent = message;
-  toast.style.display = "block";
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 3000);
+  if (toast) {
+    toast.textContent = message;
+    toast.style.display = "block";
+    setTimeout(() => {
+      toast.style.display = "none";
+    }, 3000);
+  }
 }
 
-// ⚙️ Spinner Helpers
+// ⚙️ Spinner Control
 function showSpinner() {
-  document.getElementById("spinner").style.display = "block";
+  const spinner = document.getElementById("spinner");
+  if (spinner) spinner.style.display = "block";
 }
 
 function hideSpinner() {
-  document.getElementById("spinner").style.display = "none";
+  const spinner = document.getElementById("spinner");
+  if (spinner) spinner.style.display = "none";
+}
+
+// 🛑 Overlay Lock (optional UX polish)
+function showOverlay() {
+  const overlay = document.getElementById("formOverlay");
+  if (overlay) overlay.style.display = "block";
+}
+
+function hideOverlay() {
+  const overlay = document.getElementById("formOverlay");
+  if (overlay) overlay.style.display = "none";
+}
+
+// 🔘 Submit Button State
+function showSubmitState() {
+  showSpinner();
+  showOverlay();
+  const btn = document.getElementById("submitBtn");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "⏳ Submitting...";
+  }
+}
+
+function resetSubmitState() {
+  hideSpinner();
+  hideOverlay();
+  const btn = document.getElementById("submitBtn");
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = "✅ Submit Record";
+  }
 }
 
 // 📤 Form Submission Handler
 installForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  showSpinner();
+  showSubmitState();
 
   const formData = new FormData(this);
   const payload = new URLSearchParams();
@@ -183,16 +219,17 @@ installForm.addEventListener("submit", function (e) {
   })
     .then(response => response.text())
     .then(data => {
-      showToast(data);
+      showToast("✅ Record submitted successfully");
       this.reset();
       machineContainer.innerHTML = "";
       machineCount = 0;
     })
     .catch(error => {
       console.error("Submission error:", error);
-      showToast("⚠️ Submission failed");
+      showToast("⚠️ Submission failed. Please try again.");
     })
     .finally(() => {
-      hideSpinner();
+      resetSubmitState();
     });
 });
+
