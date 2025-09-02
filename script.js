@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  // 🎛️ Instrument Options
   function getInstrumentOptions() {
     const instruments = [
       "Automated Slide Stainer",
@@ -54,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
   }
 
-  // ➕ Add Equipment Block
   function addMachineBlock() {
     if (machineCount >= MAX_MACHINES) {
       showToast("⚠️ Max 10 machines allowed");
@@ -68,7 +66,6 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("✅ Equipment block added");
   }
 
-  // 📷 QR Scan Logic using Html5QrcodeScanner
   window.startQRScan = function (readerId, resultId) {
     const scanner = new Html5QrcodeScanner(readerId, {
       fps: 10,
@@ -90,7 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
-  // 🔔 Toast Feedback
   function showToast(message) {
     const toast = document.getElementById("toast");
     toast.textContent = message;
@@ -100,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
-  // 📤 Form Submission
+  // ✅ Move this inside DOMContentLoaded
   installForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -128,6 +124,5 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // 🧠 Bind Events
   addMachineBtn.addEventListener("click", addMachineBlock);
 });
