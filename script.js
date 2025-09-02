@@ -8,11 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 🧩 Equipment Block Template
   function createMachineBlock(index) {
-    const qrResultId = `qrResult${index}`;
-    const qrManualId = `qrManual${index}`;
-    const qrReaderId = `qrReader${index}`;
-    const modelId = `model${index}`;
-
     return `
       <div class="machine-block">
         <label>🧪 Instrument Type:
@@ -22,23 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
           </select>
         </label>
 
-        <label for="${modelId}">Model</label>
-        <input type="text" id="${modelId}" name="model${index}" class="quarter-width" />
+        <label for="model${index}">Model</label>
+        <input type="text" id="model${index}" name="model${index}" class="quarter-width" />
 
         <label>🔍 Scan QR ID / fetch serial number:
-          <input type="text" id="${qrResultId}" name="qrResult${index}" readonly />
+          <input type="text" id="qrResult${index}" name="qrResult${index}" readonly />
         </label>
 
-        <div id="${qrReaderId}" style="width: 100%; margin-top: 10px;"></div>
-        <button type="button" onclick="startQRScan('${qrReaderId}', '${qrResultId}')">📷 Scan QR Code</button>
+        <div id="qrReader${index}" style="width: 100%; margin-top: 10px;"></div>
+        <button type="button" onclick="startQRScan('qrReader${index}', 'qrResult${index}')">📷 Scan QR Code</button>
 
         <label>✏️ Manual QR ID (if scan fails):
-          <input type="text" id="${qrManualId}" name="ManualQR${index}" />
+          <input type="text" id="qrManual${index}" name="ManualQR${index}" />
         </label>
       </div>
     `;
   }
 
+  // 🎛️ Instrument Dropdown Options
   function getInstrumentOptions() {
     const instruments = [
       "Automated Slide Stainer",
@@ -53,12 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
   }
 
+  // ➕ Add Equipment Block
   function addMachineBlock() {
     if (machineCount >= MAX_MACHINES) {
       showToast("⚠️ Max 10 machines allowed");
       return;
     }
-
     const block = document.createElement("div");
     block.innerHTML = createMachineBlock(machineCount);
     machineContainer.appendChild(block);
@@ -66,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     showToast("✅ Equipment block added");
   }
 
+  // 📷 QR Scanner Handler
   window.startQRScan = function (readerId, resultId) {
     const scanner = new Html5QrcodeScanner(readerId, {
       fps: 10,
@@ -87,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
   };
 
+  // 🍞 Toast Feedback
   function showToast(message) {
     const toast = document.getElementById("toast");
     toast.textContent = message;
@@ -96,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 3000);
   }
 
-  // ✅ Move this inside DOMContentLoaded
+  // 📤 Form Submission Handler
   installForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -109,7 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
       method: "POST",
-      body: payload
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: payload.toString()
     })
       .then(response => response.text())
       .then(data => {
@@ -124,5 +125,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
+  // 🧱 Add Block Button
   addMachineBtn.addEventListener("click", addMachineBlock);
 });
