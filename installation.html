@@ -90,39 +90,8 @@
       .catch(err => console.error("❌ SW registration failed:", err));
   }
 </script>
-
-<!-- ⚠️ Code for customer acknowledgement -->
-<script src="js/acknowledgment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-      
-<div id="acknowledgment" style="display:none; font-family: Arial; max-width: 600px; margin: auto; padding: 20px;">
-  <div style="text-align: center; margin-bottom: 20px;">
-    <img src="assets/istos-logo.jpeg" alt="ISTOS Medical Logo" style="height: 80px;">
-    <h2>ISTOS Medical Pvt Ltd</h2>
-    <h3>Field Installation Acknowledgment</h3>
-  </div>
-
-  <p><strong>Date:</strong> <span id="ack-date"></span></p>
-  <p><strong>To:</strong><br>
-     <span id="ack-customer-name"></span><br>
-     <span id="ack-customer-address"></span></p>
-  <p><strong>Subject:</strong> Confirmation of Equipment Installation</p>
-  <p>Dear <span id="ack-customer-name-2"></span>,</p>
-  <p>This is to formally acknowledge that the following equipment has been successfully installed at your facility by our service team:</p>
-  <p><strong>Installed By:</strong> <span id="ack-engineer"></span></p>
-  <ul id="ack-equipment-list"></ul>
-  <p><strong>Remarks:</strong><br><span id="ack-remarks"></span></p>
-  <p><strong>Customer Declaration:</strong><br>
-     I hereby acknowledge the successful installation of the above equipment by ISTOS Medical Pvt Ltd. I confirm that the equipment was received in satisfactory condition.</p>
-  <p>Customer Signature & Date: ___________________________<br>
-     Service Engineer Signature & Date: ___________________________</p>
-</div>
-<button id="pdf-button" style="display:none;" onclick="generatePDF()">📄 Generate PDF</button>
-
       
     </main>
   </div>
-
 </body>
 </html>
