@@ -1,6 +1,6 @@
 {
-  "name": "ISTOCK | ISTOS Medical",
-  "short_name": "istock",
+  "name": "HistoPath System | ISTOS Medical",
+  "short_name": "HistoPath",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
