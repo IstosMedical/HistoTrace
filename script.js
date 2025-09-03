@@ -10,10 +10,10 @@ function parsePostData(e) {
   }, {});
 }
 
-
+// 🧩 Equipment Block Template
 function createMachineBlock(index) {
   return `
-    <div class="machine-block">
+    <div class="machine-block fade-in">
       <div class="block-header" style="margin-bottom: 8px; font-weight: bold; font-size: 1.1em;">
         🧩 Equipment Block ${index + 1}
       </div>
@@ -26,13 +26,13 @@ function createMachineBlock(index) {
       </label>
 
       <label>🛡️ Warranty Period:</label>
-        <select name="warranty[]" required>
-          <option value="" disabled selected>Duration</option>
-          <option value="1 Year">1 Year</option>
-          <option value="2 Years">2 Years</option>
-          <option value="3 Years">3 Years</option>
-        </select>
-        
+      <select name="warranty[]" required>
+        <option value="" disabled selected>Duration</option>
+        <option value="1 Year">1 Year</option>
+        <option value="2 Years">2 Years</option>
+        <option value="3 Years">3 Years</option>
+      </select>
+
       <label for="model${index}">Model</label>
       <input type="text" id="model${index}" name="model[]" class="quarter-width" />
 
@@ -47,49 +47,8 @@ function createMachineBlock(index) {
         <input type="text" id="qrManual${index}" name="ManualQR[]" />
       </label>
 
-       <label>🔤 Remarks: (Optional field)</label>
-        <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
-    </div>
-  `;
-}
-
-
-// 🧩 Equipment Block Template (array-style names)
-function createMachineBlock(index) {
-  return `
-    <div class="machine-block">
-      <label>🧪 Instrument Type:
-        <select name="InstrumentType[]" required>
-          <option value="" disabled selected>Select instrument</option>
-          ${getInstrumentOptions()}
-        </select>
-      </label>
-
-      <label>🛡️ Warranty Period:</label>
-        <select name="warranty[]" required class="half-width">
-          <option value="" disabled selected>Duration</option>
-          <option value="1 Year">1 Year</option>
-          <option value="2 Years">2 Years</option>
-          <option value="3 Years">3 Years</option>
-        </select>
-        
-      <label for="model${index}">Model</label>
-      <input type="text" id="model${index}" name="model[]" class="quarter-width" />
-
-      <label>🔍 Scan QR ID / fetch serial number:
-        <input type="text" id="qrResult${index}" name="qrResult[]" readonly />
-      </label>
-
-      <div id="qrReader${index}" style="width: 100%; margin-top: 10px;"></div>
-      <button type="button" data-reader="qrReader${index}" data-result="qrResult${index}" class="scan-btn">📷 Scan QR Code</button>
-
-      <label>✏️ Manual QR ID (if scan fails):
-        <input type="text" id="qrManual${index}" name="ManualQR[]" />
-      </label>
-    </div>
-
-     <label>🔤 Remarks: (Optional field)</label>
-       <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
+      <label>🔤 Remarks: (Optional field)</label>
+      <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
     </div>
   `;
 }
@@ -118,6 +77,12 @@ function addMachineBlock(container, count, max) {
   const block = document.createElement("div");
   block.innerHTML = createMachineBlock(count);
   container.appendChild(block);
+
+  // 🧭 Auto-scroll to new block
+  setTimeout(() => {
+    block.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 100);
+
   showToast(`✅ Equipment block ${count + 1} added`);
   return count + 1;
 }
@@ -189,7 +154,7 @@ function hideSpinner() {
   if (spinner) spinner.style.display = "none";
 }
 
-// 🛑 Overlay Lock (optional UX polish)
+// 🛑 Overlay Lock
 function showOverlay() {
   const overlay = document.getElementById("formOverlay");
   if (overlay) overlay.style.display = "block";
@@ -221,45 +186,32 @@ function resetSubmitState() {
   }
 }
 
-// 📤 Form Submission Handler with Timestamp
-
-document.getElementById("mainForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const formData = new FormData(this);
-
-  // ✅ Add this line here:
-  console.log("🛡️ Warranty values:", formData.getAll("warranty[]"));
-  
-installForm.addEventListener("submit", async function (e) {
+// 📤 Form Submission Handler
+document.getElementById("mainForm").addEventListener("submit", async function (e) {
   e.preventDefault();
   showSubmitState();
 
   try {
     const formData = new FormData(this);
+    console.log("🛡️ Warranty values:", formData.getAll("warranty[]"));
+
     const payload = new URLSearchParams();
+    payload.append("submissionTimestamp", new Date().toISOString());
 
-    // ⏱️ Add actual timestamp
-    const timestamp = new Date().toISOString();
-    payload.append("submissionTimestamp", timestamp);
-
-    // 📦 Append all form fields
     for (const [key, value] of formData.entries()) {
       payload.append(key, value);
     }
 
     const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: payload.toString()
     });
 
     const result = await response.text();
     showToast("✅ Record submitted successfully");
     this.reset();
-    machineContainer.innerHTML = "";
+    document.getElementById("machineContainer").innerHTML = "";
     machineCount = 0;
 
   } catch (error) {
@@ -269,5 +221,3 @@ installForm.addEventListener("submit", async function (e) {
     resetSubmitState();
   }
 });
-
-
