@@ -10,6 +10,21 @@ function parsePostData(e) {
   }, {});
 }
 
+// 🎛️ Instrument Dropdown Options
+function getInstrumentOptions() {
+  const instruments = [
+    "Automated Slide Stainer",
+    "Automated Tissue Processor",
+    "Bane Saw Machine",
+    "Cryostat Microtome",
+    "Grossing station",
+    "Rotary Microtome",
+    "Tissue Embedding Station",
+    "Water Baths"
+  ];
+  return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
+}
+
 // 🧩 Equipment Block Template
 function createMachineBlock(index) {
   return `
@@ -53,21 +68,6 @@ function createMachineBlock(index) {
   `;
 }
 
-// 🎛️ Instrument Dropdown Options
-function getInstrumentOptions() {
-  const instruments = [
-    "Automated Slide Stainer",
-    "Automated Tissue Processor",
-    "Bane Saw Machine",
-    "Cryostat Microtome",
-    "Grossing station",
-    "Rotary Microtome",
-    "Tissue Embedding Station",
-    "Water Baths"
-  ];
-  return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
-}
-
 // ➕ Add Equipment Block
 function addMachineBlock(container, count, max) {
   if (count >= max) {
@@ -78,7 +78,6 @@ function addMachineBlock(container, count, max) {
   block.innerHTML = createMachineBlock(count);
   container.appendChild(block);
 
-  // 🧭 Auto-scroll to new block
   setTimeout(() => {
     block.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 100);
@@ -86,28 +85,6 @@ function addMachineBlock(container, count, max) {
   showToast(`✅ Equipment block ${count + 1} added`);
   return count + 1;
 }
-
-// 📦 DOM Ready
-document.addEventListener("DOMContentLoaded", () => {
-  const MAX_MACHINES = 10;
-  let machineCount = 0;
-
-  const machineContainer = document.getElementById("machineContainer");
-  const addMachineBtn = document.getElementById("addMachineBtn");
-
-  addMachineBtn?.addEventListener("click", () => {
-    machineCount = addMachineBlock(machineContainer, machineCount, MAX_MACHINES);
-  });
-
-  // 📷 QR Scanner Delegation
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("scan-btn")) {
-      const readerId = e.target.dataset.reader;
-      const resultId = e.target.dataset.result;
-      startQRScan(readerId, resultId);
-    }
-  });
-});
 
 // 📷 QR Scanner Handler
 window.startQRScan = function (readerId, resultId) {
@@ -143,7 +120,7 @@ function showToast(message) {
   }
 }
 
-// ⚙️ Spinner Control
+// ⚙️ Spinner & Overlay
 function showSpinner() {
   const spinner = document.getElementById("spinner");
   if (spinner) spinner.style.display = "block";
@@ -154,7 +131,6 @@ function hideSpinner() {
   if (spinner) spinner.style.display = "none";
 }
 
-// 🛑 Overlay Lock
 function showOverlay() {
   const overlay = document.getElementById("formOverlay");
   if (overlay) overlay.style.display = "block";
@@ -186,40 +162,63 @@ function resetSubmitState() {
   }
 }
 
-// 📤 Form Submission Handler
-document.getElementById("mainForm").addEventListener("submit", async function (e) {
-  e.preventDefault();
-  showSubmitState();
+// 📦 DOM Ready
+document.addEventListener("DOMContentLoaded", () => {
+  const MAX_MACHINES = 10;
+  let machineCount = 0;
 
-  try {
-    const formData = new FormData(this);
-    console.log("🛡️ Warranty values:", formData.getAll("warranty[]"));
+  const machineContainer = document.getElementById("machineContainer");
+  const addMachineBtn = document.getElementById("addMachineBtn");
+  const mainForm = document.getElementById("mainForm");
 
-    const payload = new URLSearchParams();
-    payload.append("submissionTimestamp", new Date().toISOString());
+  addMachineBtn?.addEventListener("click", () => {
+    machineCount = addMachineBlock(machineContainer, machineCount, MAX_MACHINES);
+  });
 
-    for (const [key, value] of formData.entries()) {
-      payload.append(key, value);
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("scan-btn")) {
+      const readerId = e.target.dataset.reader;
+      const resultId = e.target.dataset.result;
+      startQRScan(readerId, resultId);
     }
+  });
 
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: payload.toString()
+  if (mainForm) {
+    mainForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      showSubmitState();
+
+      try {
+        const formData = new FormData(mainForm);
+        console.log("🛡️ Warranty values:", formData.getAll("warranty[]"));
+
+        const payload = new URLSearchParams();
+        payload.append("submissionTimestamp", new Date().toISOString());
+
+        for (const [key, value] of formData.entries()) {
+          payload.append(key, value);
+        }
+
+        const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: payload.toString()
+        });
+
+        const result = await response.text();
+        showToast("✅ Record submitted successfully");
+        mainForm.reset();
+        machineContainer.innerHTML = "";
+        machineCount = 0;
+
+      } catch (error) {
+        console.error("❌ Submission error:", error);
+        showToast("⚠️ Submission failed. Please try again.");
+      } finally {
+        resetSubmitState();
+      }
     });
-
-    const result = await response.text();
-    showToast("✅ Record submitted successfully");
-    this.reset();
-    document.getElementById("machineContainer").innerHTML = "";
-    machineCount = 0;
-
-  } catch (error) {
-    console.error("Submission error:", error);
-    showToast("⚠️ Submission failed. Please try again.");
-  } finally {
-    resetSubmitState();
+  } else {
+    console.warn("⚠️ Form #mainForm not found. Submission handler not attached.");
   }
 });
-
-
