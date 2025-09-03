@@ -223,31 +223,3 @@ document.getElementById("mainForm").addEventListener("submit", async function (e
 });
 
 
-// 📤 Customer acknowledgement handler
-
-document.getElementById('submitBtn').addEventListener('click', function (e) {
-  e.preventDefault(); // prevent default form submission
-
-  // Example: Extract values from form fields
-  const customerName = document.getElementById('customerName').value;
-  const customerAddress = document.getElementById('customerAddress').value;
-  const engineer = document.getElementById('engineerName').value;
-  const remarks = document.getElementById('remarks').value;
-  const equipmentItems = Array.from(document.querySelectorAll('.equipment-name')).map(el => el.value);
-
-  const today = new Date().toLocaleDateString('en-IN');
-
-  const formData = {
-    date: today,
-    customerName,
-    address: customerAddress,
-    engineer,
-    remarks,
-    equipment: equipmentItems
-  };
-
-  populateAcknowledgment(formData); // ✅ Trigger acknowledgment logic
-
-  document.getElementById('toast').style.display = 'block'; // Optional feedback
-});
-
