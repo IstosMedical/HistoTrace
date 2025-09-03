@@ -1,20 +1,26 @@
 {
-  "name": "ISTOS Installation",
-  "short_name": "ISTOS Install",
-  "start_url": "Installation.html",
+  "name": "ISTOCK | ISTOS Medical",
+  "short_name": "istock",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#2980b9",
+  "theme_color": "#0055a5",
+  "orientation": "portrait",
   "icons": [
     {
-      "src": "Install.ico",
+      "src": "mini.png",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/png"
     },
     {
-      "src": "Install.ico",
+      "src": "mini.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "stock.png",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/png"
     }
   ]
 }
