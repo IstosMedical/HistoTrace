@@ -81,6 +81,15 @@
       <div id="error-message" style="display:none; background:#ffe0e0; color:#b00020; padding:8px; border-radius:6px; margin-top:10px; text-align:center;">
         <!-- Error message will appear here -->
       </div>
+
+      <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js")
+      .then(() => console.log("✅ Service Worker registered"))
+      .catch(err => console.error("❌ SW registration failed:", err));
+  }
+</script>
+
     </main>
   </div>
 </body>
