@@ -36,12 +36,12 @@ function createMachineBlock(index) {
       <label for="model${index}">Model</label>
       <input type="text" id="model${index}" name="model[]" class="quarter-width" />
 
-      <label>🔍 Scan QR ID / fetch serial number:
+      <label>🔍 Scan / fetch serial number:
         <input type="text" id="qrResult${index}" name="qrResult[]" readonly />
       </label>
 
       <div id="qrReader${index}" style="width: 100%; margin-top: 10px;"></div>
-      <button type="button" data-reader="qrReader${index}" data-result="qrResult${index}" class="scan-btn">📷 Scan QR Code</button>
+      <button type="button" data-reader="qrReader${index}" data-result="qrResult${index}" class="scan-btn">📷 Scan </button>
 
       <label>✏️ Manual QR ID (if scan fails):
         <input type="text" id="qrManual${index}" name="ManualQR[]" />
