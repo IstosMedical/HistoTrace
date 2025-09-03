@@ -2,19 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ISTOS Installation Portal</title>
+  <title>ISTOS Medical</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- android App Settings -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#2980b9">
-
-  <!-- iOS App Settings -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="ISTOS Install">
-  <link rel="apple-touch-icon" href="Install.ico">
-
+  <link rel="apple-touch-icon" href="icons/icon-192.jpg">
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -25,35 +20,30 @@
       background-size: cover;
       text-align: center;
     }
-
     .container {
       max-width: 600px;
-      margin: 10px auto;
+      margin: 40px auto;
       background: #fff;
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 6px 11px rgba(0,0,0,0.1);
       border: 3px dashed #2980b9;
     }
-
     .logo {
       max-width: 160px;
       margin-bottom: 30px;
       border-radius: 8px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
-
     h3 {
       color: #2c3e50;
       margin-bottom: 20px;
     }
-
     p {
       color: #555;
       font-size: 16px;
       margin-bottom: 30px;
     }
-
     button {
       padding: 12px 24px;
       font-size: 16px;
@@ -64,31 +54,19 @@
       cursor: pointer;
       transition: background-color 0.3s ease, transform 0.2s ease;
     }
-
     button:hover {
       background-color: #1c5980;
       transform: scale(1.05);
-    }
-
-    @media screen and (max-width: 600px) {
-      .container {
-        margin: 40px 20px;
-        padding: 30px 20px;
-      }
-
-      button {
-        width: 100%;
-      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <img src="OLC.jfif" alt="ISTOS Medical Logo" class="logo">
+    <img src="OLC.png" alt="ISTOS Medical Logo" class="logo">
     <h3>Welcome to ISTOS MEDICAL</h3>
-    <p>Installation / Service Panel</p>
-    <button onclick="window.location.href='installation.html'">🧰 Installation</button><br><br><br>
-    <button onclick="">⚙️ Service</button>
+    <p>Choose your workflow below to begin.</p>
+    <button onclick="window.location.href='installation.html'">Installation</button><br><br><br>
+    <button onclick="">Service</button>
   </div>
 </body>
 </html>
