@@ -1,3 +1,7 @@
+// service.js
+import { saveServiceEntry } from './submitServiceEntry.js';
+window.saveServiceEntry = saveServiceEntry;
+
 // 📦 Import backend handler
 import { submitServiceEntry } from './submitServiceEntry.js';
 
