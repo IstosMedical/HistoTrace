@@ -13,14 +13,9 @@ function parsePostData(e) {
 // 🎛️ Instrument Dropdown Options
 function getInstrumentOptions() {
   const instruments = [
-    "Automated Slide Stainer",
-    "Automated Tissue Processor",
-    "Bane Saw Machine",
-    "Cryostat Microtome",
-    "Grossing station",
-    "Rotary Microtome",
-    "Tissue Embedding Station",
-    "Water Baths"
+    "Automated Slide Stainer", "Automated Tissue Processor", "Bane Saw Machine",
+    "Cryostat Microtome", "Grossing station", "Rotary Microtome",
+    "Tissue Embedding Station", "Water Baths"
   ];
   return instruments.map(i => `<option value="${i}">${i}</option>`).join("");
 }
@@ -29,9 +24,7 @@ function getInstrumentOptions() {
 function createMachineBlock(index) {
   return `
     <div class="machine-block fade-in">
-      <div class="block-header" style="margin-bottom: 8px; font-weight: bold; font-size: 1.1em;">
-        🧩 Equipment Block ${index + 1}
-      </div>
+      <div class="block-header">🧩 Equipment Block ${index + 1}</div>
 
       <label>🧪 Instrument Type:
         <select name="InstrumentType[]" required>
@@ -40,30 +33,33 @@ function createMachineBlock(index) {
         </select>
       </label>
 
-      <label>🛡️ Warranty Period:</label>
-      <select name="warranty[]" required>
-        <option value="" disabled selected>Duration</option>
-        <option value="1 Year">1 Year</option>
-        <option value="2 Years">2 Years</option>
-        <option value="3 Years">3 Years</option>
-      </select>
+      <label>🛡️ Warranty Period:
+        <select name="warranty[]" required>
+          <option value="" disabled selected>Duration</option>
+          <option value="1 Year">1 Year</option>
+          <option value="2 Years">2 Years</option>
+          <option value="3 Years">3 Years</option>
+        </select>
+      </label>
 
-      <label for="model${index}">Model</label>
-      <input type="text" id="model${index}" name="model[]" class="quarter-width" />
+      <label for="model${index}">Model
+        <input type="text" id="model${index}" name="model[]" class="quarter-width" />
+      </label>
 
       <label>🔍 Scan / fetch serial number:
         <input type="text" id="qrResult${index}" name="qrResult[]" readonly />
       </label>
 
-      <div id="qrReader${index}" style="width: 100%; margin-top: 10px;"></div>
-      <button type="button" data-reader="qrReader${index}" data-result="qrResult${index}" class="scan-btn">📷 Scan </button>
+      <div id="qrReader${index}" class="qr-reader"></div>
+      <button type="button" data-reader="qrReader${index}" data-result="qrResult${index}" class="scan-btn">📷 Scan</button>
 
-      <label>✏️ Manual QR ID (if scan fails):
+      <label>✏️ Manual QR ID:
         <input type="text" id="qrManual${index}" name="ManualQR[]" />
       </label>
 
-      <label>🔤 Remarks: (Optional field)</label>
-      <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
+      <label>🔤 Remarks:
+        <textarea name="remarks[]" class="full-width" rows="2" placeholder="Add any relevant notes..."></textarea>
+      </label>
     </div>
   `;
 }
@@ -77,11 +73,7 @@ function addMachineBlock(container, count, max) {
   const block = document.createElement("div");
   block.innerHTML = createMachineBlock(count);
   container.appendChild(block);
-
-  setTimeout(() => {
-    block.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 100);
-
+  block.scrollIntoView({ behavior: "smooth", block: "start" });
   showToast(`✅ Equipment block ${count + 1} added`);
   return count + 1;
 }
@@ -102,63 +94,30 @@ window.startQRScan = function (readerId, resultId) {
       scanner.clear();
       showToast("✅ QR scanned successfully");
     },
-    errorMessage => {
-      console.warn("QR scan error:", errorMessage);
-    }
+    errorMessage => console.warn("QR scan error:", errorMessage)
   );
 };
 
 // 🍞 Toast Feedback
 function showToast(message) {
   const toast = document.getElementById("toast");
-  if (toast) {
-    toast.textContent = message;
-    toast.style.display = "block";
-    setTimeout(() => {
-      toast.style.display = "none";
-    }, 3000);
-  }
-}
-
-// ⚙️ Spinner & Overlay
-function showSpinner() {
-  const spinner = document.getElementById("spinner");
-  if (spinner) spinner.style.display = "block";
-}
-
-function hideSpinner() {
-  const spinner = document.getElementById("spinner");
-  if (spinner) spinner.style.display = "none";
-}
-
-function showOverlay() {
-  const overlay = document.getElementById("formOverlay");
-  if (overlay) overlay.style.display = "block";
-}
-
-function hideOverlay() {
-  const overlay = document.getElementById("formOverlay");
-  if (overlay) overlay.style.display = "none";
+  if (!toast) return;
+  toast.textContent = message;
+  toast.style.display = "block";
+  setTimeout(() => (toast.style.display = "none"), 3000);
 }
 
 // 🔘 Submit Button State
-function showSubmitState() {
-  showSpinner();
-  showOverlay();
+function toggleSubmitState(isSubmitting) {
   const btn = document.getElementById("submitBtn");
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = "⏳ Submitting...";
-  }
-}
+  const spinner = document.getElementById("spinner");
+  const overlay = document.getElementById("formOverlay");
 
-function resetSubmitState() {
-  hideSpinner();
-  hideOverlay();
-  const btn = document.getElementById("submitBtn");
+  if (spinner) spinner.style.display = isSubmitting ? "block" : "none";
+  if (overlay) overlay.style.display = isSubmitting ? "block" : "none";
   if (btn) {
-    btn.disabled = false;
-    btn.textContent = "✅ Submit Record";
+    btn.disabled = isSubmitting;
+    btn.textContent = isSubmitting ? "⏳ Submitting..." : "✅ Submit Record";
   }
 }
 
@@ -175,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     machineCount = addMachineBlock(machineContainer, machineCount, MAX_MACHINES);
   });
 
-  document.addEventListener("click", (e) => {
+  document.addEventListener("click", e => {
     if (e.target.classList.contains("scan-btn")) {
       const readerId = e.target.dataset.reader;
       const resultId = e.target.dataset.result;
@@ -183,42 +142,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  if (mainForm) {
-    mainForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      showSubmitState();
+  mainForm?.addEventListener("submit", async e => {
+    e.preventDefault();
+    toggleSubmitState(true);
 
-      try {
-        const formData = new FormData(mainForm);
-        console.log("🛡️ Warranty values:", formData.getAll("warranty[]"));
+    try {
+      const formData = new FormData(mainForm);
+      const payload = new URLSearchParams();
+      payload.append("submissionTimestamp", new Date().toISOString());
 
-        const payload = new URLSearchParams();
-        payload.append("submissionTimestamp", new Date().toISOString());
-
-        for (const [key, value] of formData.entries()) {
-          payload.append(key, value);
-        }
-
-        const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: payload.toString()
-        });
-
-        const result = await response.text();
-        showToast("✅ Record submitted successfully");
-        mainForm.reset();
-        machineContainer.innerHTML = "";
-        machineCount = 0;
-
-      } catch (error) {
-        console.error("❌ Submission error:", error);
-        showToast("⚠️ Submission failed. Please try again.");
-      } finally {
-        resetSubmitState();
+      for (const [key, value] of formData.entries()) {
+        payload.append(key, value);
       }
-    });
-  } else {
-    console.warn("⚠️ Form #mainForm not found. Submission handler not attached.");
-  }
+
+      const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: payload.toString()
+      });
+
+      const result = await response.text();
+      console.log("📨 Server response:", result);
+      showToast("✅ Record submitted successfully");
+      mainForm.reset();
+      machineContainer.innerHTML = "";
+      machineCount = 0;
+
+    } catch (error) {
+      console.error("❌ Submission error:", error);
+      showToast("⚠️ Submission failed. Please try again.");
+    } finally {
+      toggleSubmitState(false);
+    }
+  });
 });
