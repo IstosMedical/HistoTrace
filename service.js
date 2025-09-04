@@ -1,6 +1,8 @@
 function fetchInstallation() {
   const input = document.getElementById('searchInput').value.trim();
   const installations = JSON.parse(localStorage.getItem('installations')) || [];
+  showServiceHistory(input); // after displaying installation
+  showServiceHistory(qr); // after saving service entry
 
   const record = installations.find(r =>
     r.customerName.toLowerCase().includes(input.toLowerCase()) ||
@@ -44,3 +46,36 @@ function saveServiceEntry() {
   localStorage.setItem('services', JSON.stringify(serviceLog));
   alert("✅ Service entry saved!");
 }
+
+
+
+function getStatusBadge(entry) {
+  if (!entry.actionTaken || entry.actionTaken.toLowerCase().includes("pending")) {
+    return "🔧 In Progress";
+  }
+  return "✅ Completed";
+}
+
+function showServiceHistory(qrCode) {
+  const serviceLog = JSON.parse(localStorage.getItem('services')) || [];
+  const filtered = serviceLog.filter(entry => entry.linkedQR === qrCode);
+
+  if (filtered.length === 0) {
+    document.getElementById('serviceHistory').innerHTML = "📭 No service history found.";
+    return;
+  }
+
+  let html = "<ul>";
+  filtered.forEach(entry => {
+    html += `<li>
+      ${entry.serviceDate} – ${entry.issue} – ${entry.actionTaken} 
+      <strong>${getStatusBadge(entry)}</strong> 
+      <br/><em>👨‍🔧 ${entry.technician}</em>
+    </li>`;
+  });
+  html += "</ul>";
+
+  document.getElementById('serviceHistory').innerHTML = html;
+}
+
+
