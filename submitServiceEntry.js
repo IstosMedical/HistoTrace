@@ -4,6 +4,8 @@
  * Handles saving service entry data from the form.
  * Extend this with API calls, PDF generation, or logging as needed.
  */
+import { submitServiceEntry } from './submitServiceEntry.js'; // Ensure this import exists if modular
+
 export function saveServiceEntry() {
   const customerName = document.getElementById('customerName').value.trim();
   const serviceDate = document.getElementById('serviceDate').value;
@@ -21,10 +23,13 @@ export function saveServiceEntry() {
     timestamp: new Date().toISOString()
   };
 
-  console.log("✅ Service entry saved:", entry);
+  console.log("✅ Service entry prepared:", entry);
 
-  // Future: Send to backend or generate PDF
-  // submitToSheet(entry); // Optional integration
+  // 🔗 Send to backend
+  submitServiceEntry(entry,
+    () => console.log("🎉 Entry successfully submitted."),
+    (err) => console.error("🛠️ Submission failed:", err)
+  );
 }
 
 
