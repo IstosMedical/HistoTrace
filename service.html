@@ -9,34 +9,51 @@
 <body>
   <main>
     <section id="serviceForm">
-      <h1>🔧 ISTOS Service Tracker</h1>
+  <h1>🔧 ISTOS Service Tracker</h1>
 
-      <nav style="margin-bottom: 1rem;">
-        <a href="index.html">🏠 Home</a> |
-        <a href="installation.html">🧪 Installation</a>
-      </nav>
+  <nav style="margin-bottom: 1rem;">
+    <a href="index.html">🏠 Home</a> |
+    <a href="installation.html">🧪 Installation</a>
+  </nav>
 
-      <h2>📋 Service Request</h2>
-      <label for="searchInput">Scan QR or Enter Customer Name:</label>
-      <input type="text" id="searchInput" placeholder="QRX-001 or Dr. Asha Rao" />
-      <button onclick="fetchInstallation()">🔍 Fetch Installation</button>
+  <h2>📋 Service Request</h2>
+  <label for="searchInput">Scan QR or Enter Customer Name:</label>
+  <input type="text" id="searchInput" placeholder="QRX-001 or Dr. Asha Rao" />
+  <button onclick="fetchInstallation()">🔍 Fetch Installation</button>
 
-      <div id="installationDetails"></div>
+  <div id="installationDetails"></div>
 
-      <h3>🛠️ Add Service Entry</h3>
-      <input type="date" id="serviceDate" />
-      <input type="text" id="issueReported" placeholder="Issue reported" />
-      <input type="text" id="actionTaken" placeholder="Action taken" />
-      <input type="text" id="technicianName" placeholder="Technician name" />
-      <button onclick="saveServiceEntry()">💾 Save Service</button>
+  <h3>🛠️ Add Service Entry</h3>
+  <input type="date" id="serviceDate" />
+  <input type="text" id="issueReported" placeholder="Issue reported" />
+  <input type="text" id="actionTaken" placeholder="Action taken" />
+  <input type="text" id="technicianName" placeholder="Technician name" />
+  <button onclick="saveServiceEntry()">💾 Save Service</button>
 
-      <h3>📋 Service History</h3>
-      <div id="serviceHistory"></div>
+  <!-- 📌 Floating New Service Button (now inside form) -->
+  <button id="newServiceBtn" onclick="openServiceModal()">➕ New Service</button>
 
-      <footer style="margin-top: 2rem;">
-        <p>© 2025 ISTOS Medical</p>
-      </footer>
-    </section>
+  <!-- 🛠️ Edit Service Entry Modal (also inside form) -->
+  <div id="serviceModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close" onclick="closeServiceModal()">×</span>
+      <h3>🛠️ Edit Service Entry</h3>
+      <input type="date" id="modalServiceDate" />
+      <input type="text" id="modalIssueReported" placeholder="Issue reported" />
+      <input type="text" id="modalActionTaken" placeholder="Action taken" />
+      <input type="text" id="modalTechnicianName" placeholder="Technician name" />
+      <button onclick="saveModalServiceEntry()">💾 Save</button>
+    </div>
+  </div>
+
+  <h3>📋 Service History</h3>
+  <div id="serviceHistory"></div>
+
+  <footer style="margin-top: 2rem;">
+    <p>© 2025 ISTOS Medical</p>
+  </footer>
+</section>
+
   </main>
 
   <!-- Floating New Service Button -->
