@@ -18,3 +18,14 @@ export function collectServiceEntry() {
     timestamp: new Date().toISOString()
   };
 }
+
+export function validateServiceEntry(entry) {
+  const { serviceDate, issue, actionTaken, technician } = entry;
+
+  if (!serviceDate || !issue || !actionTaken || !technician) {
+    console.warn("⚠️ Incomplete service entry:", entry);
+    return false;
+  }
+
+  return true;
+}
