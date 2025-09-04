@@ -3,9 +3,7 @@ function parsePostData(e) {
   const raw = e.postData.contents || "";
   return raw.split("&").reduce((acc, pair) => {
     const [key, value = ""] = pair.split("=");
-    const decodedKey = decodeURIComponent(key.replace(/\+/g, " "));
-    const decodedValue = decodeURIComponent(value.replace(/\+/g, " "));
-    acc[decodedKey] = decodedValue;
+    acc[decodeURIComponent(key.replace(/\+/g, " "))] = decodeURIComponent(value.replace(/\+/g, " "));
     return acc;
   }, {});
 }
@@ -79,7 +77,7 @@ function addMachineBlock(container, count, max) {
 }
 
 // 📷 QR Scanner Handler
-window.startQRScan = function (readerId, resultId) {
+function startQRScan(readerId, resultId) {
   const scanner = new Html5QrcodeScanner(readerId, {
     fps: 10,
     qrbox: 250,
@@ -96,7 +94,7 @@ window.startQRScan = function (readerId, resultId) {
     },
     errorMessage => console.warn("QR scan error:", errorMessage)
   );
-};
+}
 
 // 🍞 Toast Feedback
 function showToast(message) {
@@ -121,6 +119,41 @@ function toggleSubmitState(isSubmitting) {
   }
 }
 
+// 🚀 Submit Form Handler
+async function handleFormSubmit(e, form, container, resetCounter) {
+  e.preventDefault();
+  toggleSubmitState(true);
+
+  try {
+    const formData = new FormData(form);
+    const payload = new URLSearchParams();
+    payload.append("submissionTimestamp", new Date().toISOString());
+
+    for (const [key, value] of formData.entries()) {
+      payload.append(key, value);
+    }
+
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: payload.toString()
+    });
+
+    const result = await response.text();
+    console.log("📨 Server response:", result);
+    showToast("✅ Record submitted successfully");
+    form.reset();
+    container.innerHTML = "";
+    resetCounter();
+
+  } catch (error) {
+    console.error("❌ Submission error:", error);
+    showToast("⚠️ Submission failed. Please try again.");
+  } finally {
+    toggleSubmitState(false);
+  }
+}
+
 // 📦 DOM Ready
 document.addEventListener("DOMContentLoaded", () => {
   const MAX_MACHINES = 10;
@@ -142,37 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  mainForm?.addEventListener("submit", async e => {
-    e.preventDefault();
-    toggleSubmitState(true);
-
-    try {
-      const formData = new FormData(mainForm);
-      const payload = new URLSearchParams();
-      payload.append("submissionTimestamp", new Date().toISOString());
-
-      for (const [key, value] of formData.entries()) {
-        payload.append(key, value);
-      }
-
-      const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: payload.toString()
-      });
-
-      const result = await response.text();
-      console.log("📨 Server response:", result);
-      showToast("✅ Record submitted successfully");
-      mainForm.reset();
-      machineContainer.innerHTML = "";
-      machineCount = 0;
-
-    } catch (error) {
-      console.error("❌ Submission error:", error);
-      showToast("⚠️ Submission failed. Please try again.");
-    } finally {
-      toggleSubmitState(false);
-    }
+  mainForm?.addEventListener("submit", e => {
+    handleFormSubmit(e, mainForm, machineContainer, () => (machineCount = 0));
   });
 });
