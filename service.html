@@ -3,22 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🔧 ISTOS Service Module</title>
+  <title>⚙️ ISTOS Service Tracker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>🔧 ISTOS Service Tracker</h1>
-    <nav>
-      <a href="index.html">🏠 Home</a>
-      <a href="installation.html">🧪 Installation</a>
-    </nav>
+    <h2>⚙️ ISTOS Service Tracker</h2>
   </header>
 
   <main>
     <section id="serviceForm">
+      <nav style="margin-bottom: 1rem;">
+        <a href="index.html">🏠 Home</a> |
+        <a href="installation.html">🧪 Installation</a>
+      </nav>
+
       <h2>📋 Service Request</h2>
-      <label for="searchInput">Enter Customer Name:</label>
+      <label for="searchInput">Scan QR or Enter Customer Name:</label>
       <input type="text" id="searchInput" placeholder="QRX-001 or Dr. Asha Rao" />
       <button onclick="fetchInstallation()">🔍 Fetch Installation</button>
 
