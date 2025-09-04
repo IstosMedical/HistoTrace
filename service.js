@@ -1,8 +1,7 @@
+// 🔍 Fetch installation details from localStorage
 function fetchInstallation() {
   const input = document.getElementById('searchInput').value.trim();
   const installations = JSON.parse(localStorage.getItem('installations')) || [];
-  showServiceHistory(input); // after displaying installation
-  showServiceHistory(qr); // after saving service entry
 
   const record = installations.find(r =>
     r.customerName.toLowerCase().includes(input.toLowerCase()) ||
@@ -11,11 +10,14 @@ function fetchInstallation() {
 
   if (record) {
     displayInstallation(record);
+    showServiceHistory(input); // Show history after displaying installation
   } else {
     document.getElementById('installationDetails').innerHTML = "❌ No record found.";
+    document.getElementById('serviceHistory').innerHTML = ""; // Clear history
   }
 }
 
+// 🖼️ Render installation block
 function displayInstallation(record) {
   let html = `<h4>📍 ${record.customerName} – ${record.location}</h4><ul>`;
   record.equipment.forEach(eq => {
@@ -25,8 +27,31 @@ function displayInstallation(record) {
   document.getElementById('installationDetails').innerHTML = html;
 }
 
+// 💾 Unified service entry save handler
+function submitServiceEntry(entry) {
+  fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+    method: "POST",
+    body: JSON.stringify(entry),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("✅ Service entry saved to ServiceForm sheet!");
+      showServiceHistory(entry.qrCode);
+    } else {
+      alert("❌ Failed to save entry. Try again.");
+    }
+  })
+  .catch(err => {
+    console.error("Error saving entry:", err);
+    alert("🚨 Backend error. Check console or network.");
+  });
+}
 
-
+// 🧾 Inline form save
 function saveServiceEntry() {
   const qr = document.getElementById('searchInput').value.trim();
   const serviceDate = document.getElementById('serviceDate').value;
@@ -39,46 +64,27 @@ function saveServiceEntry() {
     return;
   }
 
-  const payload = {
-    qrCode: qr,
-    serviceDate,
-    issue,
-    actionTaken,
-    technician
-  };
-
-  fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-    method: "POST",
-    body: JSON.stringify(payload),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert("✅ Service entry saved to ServiceForm sheet!");
-      showServiceHistory(qr); // Refresh history
-    } else {
-      alert("❌ Failed to save entry. Try again.");
-    }
-  })
-  .catch(err => {
-    console.error("Error saving entry:", err);
-    alert("🚨 Backend error. Check console or network.");
-  });
+  submitServiceEntry({ qrCode: qr, serviceDate, issue, actionTaken, technician });
 }
 
+// 🧾 Modal form save
+function saveModalServiceEntry() {
+  const qr = document.getElementById('searchInput').value.trim();
+  const serviceDate = document.getElementById("modalServiceDate").value;
+  const issue = document.getElementById("modalIssueReported").value;
+  const actionTaken = document.getElementById("modalActionTaken").value;
+  const technician = document.getElementById("modalTechnicianName").value;
 
-
-
-function getStatusBadge(entry) {
-  if (!entry.actionTaken || entry.actionTaken.toLowerCase().includes("pending")) {
-    return "🔧 In Progress";
+  if (!serviceDate || !issue || !actionTaken || !technician) {
+    alert("⚠️ Please fill all fields before saving.");
+    return;
   }
-  return "✅ Completed";
+
+  submitServiceEntry({ qrCode: qr, serviceDate, issue, actionTaken, technician });
+  closeServiceModal();
 }
 
+// 📋 Show service history (still local for now)
 function showServiceHistory(qrCode) {
   const serviceLog = JSON.parse(localStorage.getItem('services')) || [];
   const filtered = serviceLog.filter(entry => entry.linkedQR === qrCode);
@@ -101,8 +107,15 @@ function showServiceHistory(qrCode) {
   document.getElementById('serviceHistory').innerHTML = html;
 }
 
+// 🏷️ Status badge logic
+function getStatusBadge(entry) {
+  if (!entry.actionTaken || entry.actionTaken.toLowerCase().includes("pending")) {
+    return "🔧 In Progress";
+  }
+  return "✅ Completed";
+}
 
-
+// 🪟 Modal controls
 function openServiceModal() {
   document.getElementById("serviceModal").classList.remove("hidden");
 }
@@ -110,18 +123,3 @@ function openServiceModal() {
 function closeServiceModal() {
   document.getElementById("serviceModal").classList.add("hidden");
 }
-
-function saveModalServiceEntry() {
-  const date = document.getElementById("modalServiceDate").value;
-  const issue = document.getElementById("modalIssueReported").value;
-  const action = document.getElementById("modalActionTaken").value;
-  const tech = document.getElementById("modalTechnicianName").value;
-
-  // You can reuse saveServiceEntry logic or modularize it
-  console.log("Saving modal entry:", { date, issue, action, tech });
-
-  closeServiceModal();
-}
-
-
-
