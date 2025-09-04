@@ -79,3 +79,26 @@ function showServiceHistory(qrCode) {
 }
 
 
+
+function openServiceModal() {
+  document.getElementById("serviceModal").classList.remove("hidden");
+}
+
+function closeServiceModal() {
+  document.getElementById("serviceModal").classList.add("hidden");
+}
+
+function saveModalServiceEntry() {
+  const date = document.getElementById("modalServiceDate").value;
+  const issue = document.getElementById("modalIssueReported").value;
+  const action = document.getElementById("modalActionTaken").value;
+  const tech = document.getElementById("modalTechnicianName").value;
+
+  // You can reuse saveServiceEntry logic or modularize it
+  console.log("Saving modal entry:", { date, issue, action, tech });
+
+  closeServiceModal();
+}
+
+
+
