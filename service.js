@@ -1,4 +1,4 @@
-import { collectServiceEntry, validateServiceEntry } from './formHandler.js';
+import { collectServiceEntry } from './formHandler.js';
 import { submitServiceEntry } from './backend.js';
 import { logEntry, logError } from './logger.js';
 
