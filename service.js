@@ -23,7 +23,7 @@ window.fetchInstallation = async function () {
 
   toggleSpinner(true);
   try {
-    const res = await fetch(`https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec?customer=${encodeURIComponent(customer)}`);
+    const res = await fetch(`https://script.google.com/macros/s/AKfycbyesB2CEglAW9p0RHy3U4WMLfGiOgSkLJwUKSedOjkrGse29woYUvbjDZnwht_c4v4y/exec?customer=${encodeURIComponent(customer)}`);
     const data = await res.json();
     document.getElementById("installationDetails").innerHTML = `
       <p><strong>Machine:</strong> ${data.machine || "N/A"}</p>
