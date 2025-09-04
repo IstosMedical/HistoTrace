@@ -3,16 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>⚙️ ISTOS Service Tracker</title>
+  <title>🔧 ISTOS Service Tracker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h2>⚙️ ISTOS Service Tracker</h2>
-  </header>
-
   <main>
     <section id="serviceForm">
+      <h1>🔧 ISTOS Service Tracker</h1>
+
       <nav style="margin-bottom: 1rem;">
         <a href="index.html">🏠 Home</a> |
         <a href="installation.html">🧪 Installation</a>
@@ -31,17 +29,32 @@
       <input type="text" id="actionTaken" placeholder="Action taken" />
       <input type="text" id="technicianName" placeholder="Technician name" />
       <button onclick="saveServiceEntry()">💾 Save Service</button>
+
+      <h3>📋 Service History</h3>
+      <div id="serviceHistory"></div>
+
+      <footer style="margin-top: 2rem;">
+        <p>© 2025 ISTOS Medical</p>
+      </footer>
     </section>
   </main>
 
-  <footer>
-    <p>© 2025 ISTOS Medical</p>
-  </footer>
+  <!-- Floating New Service Button -->
+<button id="newServiceBtn" onclick="openServiceModal()">➕ New Service</button>
+
+<!-- Modal for Editing Service Entry -->
+<div id="serviceModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close" onclick="closeServiceModal()">×</span>
+    <h3>🛠️ Edit Service Entry</h3>
+    <input type="date" id="modalServiceDate" />
+    <input type="text" id="modalIssueReported" placeholder="Issue reported" />
+    <input type="text" id="modalActionTaken" placeholder="Action taken" />
+    <input type="text" id="modalTechnicianName" placeholder="Technician name" />
+    <button onclick="saveModalServiceEntry()">💾 Save</button>
+  </div>
+</div>
 
   <script src="service.js" defer></script>
-
-  <h3>📋 Service History</h3>
-  <div id="serviceHistory"></div>
-
 </body>
 </html>
