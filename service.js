@@ -1,3 +1,6 @@
+// 📦 Import backend handler
+import { submitServiceEntry } from './submitServiceEntry.js';
+
 // 🔍 Fetch installation details from localStorage
 function fetchInstallation() {
   const input = document.getElementById('searchInput').value.trim();
@@ -27,39 +30,6 @@ function displayInstallation(record) {
   document.getElementById('installationDetails').innerHTML = html;
 }
 
-// 💾 Unified service entry save handler with enhanced error handling
-async function submitServiceEntry(entry) {
-  try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-      method: "POST",
-      body: JSON.stringify(entry),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("❌ Backend error:", response.status, errorText);
-      alert("🚨 Backend error. Check console or network.");
-      return;
-    }
-
-    const data = await response.json();
-    console.log("✅ Backend response:", data);
-
-    if (data.success) {
-      alert("✅ Service entry saved to ServiceForm sheet!");
-      showServiceHistory(entry.qrCode);
-    } else {
-      alert("❌ Failed to save entry. Try again.");
-    }
-  } catch (err) {
-    console.error("❌ Fetch failed:", err);
-    alert("🚨 Network error. Check console.");
-  }
-}
-
 // 🧾 Inline form save
 function saveServiceEntry() {
   const qr = document.getElementById('searchInput').value.trim();
@@ -73,7 +43,11 @@ function saveServiceEntry() {
     return;
   }
 
-  submitServiceEntry({ qrCode: qr, serviceDate, issue, actionTaken, technician });
+  submitServiceEntry(
+    { qrCode: qr, serviceDate, issue, actionTaken, technician },
+    () => showServiceHistory(qr),
+    () => console.warn("Service entry failed to save.")
+  );
 }
 
 // 🧾 Modal form save
@@ -89,7 +63,12 @@ function saveModalServiceEntry() {
     return;
   }
 
-  submitServiceEntry({ qrCode: qr, serviceDate, issue, actionTaken, technician });
+  submitServiceEntry(
+    { qrCode: qr, serviceDate, issue, actionTaken, technician },
+    () => showServiceHistory(qr),
+    () => console.warn("Modal service entry failed.")
+  );
+
   closeServiceModal();
 }
 
