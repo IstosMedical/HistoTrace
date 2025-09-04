@@ -1,10 +1,35 @@
+// submitServiceEntry.js
+
+/**
+ * Handles saving service entry data from the form.
+ * Extend this with API calls, PDF generation, or logging as needed.
+ */
+export function saveServiceEntry() {
+  const customerName = document.getElementById('customerName').value.trim();
+  const serviceDate = document.getElementById('serviceDate').value;
+  const remarks = document.getElementById('remarks').value.trim();
+
+  if (!customerName || !serviceDate || !remarks) {
+    alert("⚠️ Please fill in all fields before saving.");
+    return;
+  }
+
+  const entry = {
+    customer: customerName,
+    date: serviceDate,
+    remarks: remarks,
+    timestamp: new Date().toISOString()
+  };
+
+  console.log("✅ Service entry saved:", entry);
+
+  // Future: Send to backend or generate PDF
+  // submitToSheet(entry); // Optional integration
+}
+
+
 export async function submitServiceEntry(entry, onSuccess = () => {}, onFailure = () => {}) {
   const endpoint = "https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec";
-
-  // submitServiceEntry.js
-export function saveServiceEntry() {
-  console.log("Saving service entry...");
-}
 
   try {
     const response = await fetch(endpoint, {
