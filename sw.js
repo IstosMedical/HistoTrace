@@ -1,4 +1,3 @@
-<script>
 self.addEventListener("install", event => {
   event.waitUntil(
     caches.open("istos-install-cache").then(cache => {
@@ -21,4 +20,3 @@ self.addEventListener("fetch", event => {
     })
   );
 });
-<script>
