@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔧 ISTOS Service Module</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🔧 ISTOS Service Tracker</h1>
+    <nav>
+      <a href="index.html">🏠 Home</a>
+      <a href="installation.html">🧪 Installation</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="serviceForm">
+      <h2>📋 Service Request</h2>
+      <label for="searchInput">Enter Customer Name:</label>
+      <input type="text" id="searchInput" placeholder="QRX-001 or Dr. Asha Rao" />
+      <button onclick="fetchInstallation()">🔍 Fetch Installation</button>
+
+      <div id="installationDetails"></div>
+
+      <h3>🛠️ Add Service Entry</h3>
+      <input type="date" id="serviceDate" />
+      <input type="text" id="issueReported" placeholder="Issue reported" />
+      <input type="text" id="actionTaken" placeholder="Action taken" />
+      <input type="text" id="technicianName" placeholder="Technician name" />
+      <button onclick="saveServiceEntry()">💾 Save Service</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 ISTOS Medical</p>
+  </footer>
+
+  <script src="service.js" defer></script>
+</body>
+</html>
