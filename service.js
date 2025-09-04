@@ -10,10 +10,10 @@ function fetchInstallation() {
 
   if (record) {
     displayInstallation(record);
-    showServiceHistory(input); // Show history after displaying installation
+    showServiceHistory(input);
   } else {
     document.getElementById('installationDetails').innerHTML = "❌ No record found.";
-    document.getElementById('serviceHistory').innerHTML = ""; // Clear history
+    document.getElementById('serviceHistory').innerHTML = "";
   }
 }
 
@@ -27,28 +27,37 @@ function displayInstallation(record) {
   document.getElementById('installationDetails').innerHTML = html;
 }
 
-// 💾 Unified service entry save handler
-function submitServiceEntry(entry) {
-  fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
-    method: "POST",
-    body: JSON.stringify(entry),
-    headers: {
-      "Content-Type": "application/json"
+// 💾 Unified service entry save handler with enhanced error handling
+async function submitServiceEntry(entry) {
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+      method: "POST",
+      body: JSON.stringify(entry),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("❌ Backend error:", response.status, errorText);
+      alert("🚨 Backend error. Check console or network.");
+      return;
     }
-  })
-  .then(res => res.json())
-  .then(data => {
+
+    const data = await response.json();
+    console.log("✅ Backend response:", data);
+
     if (data.success) {
       alert("✅ Service entry saved to ServiceForm sheet!");
       showServiceHistory(entry.qrCode);
     } else {
       alert("❌ Failed to save entry. Try again.");
     }
-  })
-  .catch(err => {
-    console.error("Error saving entry:", err);
-    alert("🚨 Backend error. Check console or network.");
-  });
+  } catch (err) {
+    console.error("❌ Fetch failed:", err);
+    alert("🚨 Network error. Check console.");
+  }
 }
 
 // 🧾 Inline form save
