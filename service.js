@@ -1,9 +1,8 @@
-// service.js
-import { saveServiceEntry } from './submitServiceEntry.js';
-window.saveServiceEntry = saveServiceEntry;
-
 // 📦 Import backend handler
 import { submitServiceEntry } from './submitServiceEntry.js';
+
+// 🧾 Expose inline save for HTML onclick
+window.saveServiceEntry = saveServiceEntry;
 
 // 🔍 Fetch installation details from localStorage
 function fetchInstallation() {
@@ -38,19 +37,36 @@ function displayInstallation(record) {
 function saveServiceEntry() {
   const qr = document.getElementById('searchInput').value.trim();
   const serviceDate = document.getElementById('serviceDate').value;
-  const issue = document.getElementById('issueReported').value;
-  const actionTaken = document.getElementById('actionTaken').value;
-  const technician = document.getElementById('technicianName').value;
+  const issue = document.getElementById('issueReported').value.trim();
+  const actionTaken = document.getElementById('actionTaken').value.trim();
+  const technician = document.getElementById('technicianName').value.trim();
 
   if (!serviceDate || !issue || !actionTaken || !technician) {
     alert("⚠️ Please fill all fields before saving.");
     return;
   }
 
+  const entry = {
+    qrCode: qr,
+    serviceDate,
+    issue,
+    actionTaken,
+    technician,
+    timestamp: new Date().toISOString()
+  };
+
+  console.log("📦 Submitting service entry:", entry);
+
   submitServiceEntry(
-    { qrCode: qr, serviceDate, issue, actionTaken, technician },
-    () => showServiceHistory(qr),
-    () => console.warn("Service entry failed to save.")
+    entry,
+    () => {
+      console.log("✅ Entry saved successfully.");
+      showServiceHistory(qr);
+    },
+    (err) => {
+      console.warn("❌ Save failed:", err);
+      alert("🚨 Could not save entry. Check console or network.");
+    }
   );
 }
 
@@ -58,19 +74,36 @@ function saveServiceEntry() {
 function saveModalServiceEntry() {
   const qr = document.getElementById('searchInput').value.trim();
   const serviceDate = document.getElementById("modalServiceDate").value;
-  const issue = document.getElementById("modalIssueReported").value;
-  const actionTaken = document.getElementById("modalActionTaken").value;
-  const technician = document.getElementById("modalTechnicianName").value;
+  const issue = document.getElementById("modalIssueReported").value.trim();
+  const actionTaken = document.getElementById("modalActionTaken").value.trim();
+  const technician = document.getElementById("modalTechnicianName").value.trim();
 
   if (!serviceDate || !issue || !actionTaken || !technician) {
     alert("⚠️ Please fill all fields before saving.");
     return;
   }
 
+  const entry = {
+    qrCode: qr,
+    serviceDate,
+    issue,
+    actionTaken,
+    technician,
+    timestamp: new Date().toISOString()
+  };
+
+  console.log("📦 Submitting modal entry:", entry);
+
   submitServiceEntry(
-    { qrCode: qr, serviceDate, issue, actionTaken, technician },
-    () => showServiceHistory(qr),
-    () => console.warn("Modal service entry failed.")
+    entry,
+    () => {
+      console.log("✅ Modal entry saved.");
+      showServiceHistory(qr);
+    },
+    (err) => {
+      console.warn("❌ Modal save failed:", err);
+      alert("🚨 Could not save modal entry.");
+    }
   );
 
   closeServiceModal();
