@@ -6,7 +6,6 @@
   <title>🧩 ISTOS Service Tracker</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Inline style for green New Service button */
     #newServiceBtn {
       background-color: #28a745;
       color: white;
@@ -62,55 +61,69 @@
   </style>
 </head>
 <body>
-  <main>
-    <section id="serviceForm">
-      <h2>⚠️ ISTOS Service Tracker</h2>
-
-      <nav style="margin-bottom: 1rem;">
-        <a href="index.html">🏠 Home</a> |
-        <a href="installation.html">🧪 Installation</a>
-      </nav>
-
-      <h2>📋 Service Request</h2>
-      <label for="searchInput">Scan QR or Enter Customer Name:</label>
-      <input type="text" id="searchInput" placeholder="QRX-001 or Dr. Asha Rao" />
-      <button onclick="fetchInstallation()">🔍 Fetch Installation</button>
-
-      <div id="installationDetails"></div>
-
-      <h3>🛠️ Add Service Entry</h3>
-      <input type="date" id="serviceDate" />
-      <input type="text" id="issueReported" placeholder="Issue reported" />
-      <input type="text" id="actionTaken" placeholder="Action taken" />
-      <input type="text" id="technicianName" placeholder="Technician name" />
-
-      <!-- Button Row -->
-      <div class="button-row">
-        <button onclick="saveServiceEntry()">💾 Save Service</button>
-        <button id="newServiceBtn" onclick="openServiceModal()">➕ New Service</button>
-      </div>
-
-      <!-- 🛠️ Edit Service Entry Modal -->
-      <div id="serviceModal" class="modal hidden">
-        <div class="modal-content">
-          <span class="close" onclick="closeServiceModal()">×</span>
-          <h3>🛠️ Edit Service Entry</h3>
-          <input type="date" id="modalServiceDate" />
-          <input type="text" id="modalIssueReported" placeholder="Issue reported" />
-          <input type="text" id="modalActionTaken" placeholder="Action taken" />
-          <input type="text" id="modalTechnicianName" placeholder="Technician name" />
-          <button onclick="saveModalServiceEntry()">💾 Save</button>
+  <div class="container">
+    <main>
+      <form id="mainForm" method="POST">
+        <!-- 🧬 Centered Logo + Title -->
+        <div style="text-align: center; margin-bottom: 20px;">
+          <img src="mini.png" class="top-logo" alt="ISTOS Medical Logo" />
+          <h3 style="margin-top: 0; margin-bottom: 20px; color: #3b5998;">🔧 ISTOS Service Tracker</h3>
+          <div id="spinner" style="display: none; margin-top: 10px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Loading..." width="30" />
+          </div>
         </div>
-      </div>
 
-      <h3>📋 Service History</h3>
-      <div id="serviceHistory"></div>
+        <div id="formOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.6); z-index:999;"></div>
 
-      <footer style="margin-top: 2rem;">
-        <p>© 2025 ISTOS Medical</p>
-      </footer>
-    </section>
-  </main>
+        <!-- 🔗 Navigation -->
+        <nav style="margin-bottom: 1rem; text-align: center;">
+          <a href="index.html">🏠 Home</a> |
+          <a href="installation.html">🧪 Installation</a>
+        </nav>
+
+        <!-- 📋 Service Request -->
+        <label for="searchInput">Scan QR or Enter Customer Name:</label>
+        <input type="text" id="searchInput" placeholder="QRX-001 or Dr. Asha Rao" />
+        <button type="button" onclick="fetchInstallation()">🔍 Fetch Installation</button>
+
+        <div id="installationDetails" style="margin-top: 1rem;"></div>
+
+        <!-- 🛠️ Add Service Entry -->
+        <h4 style="margin-top: 2rem;">🛠️ Add Service Entry</h4>
+        <input type="date" id="serviceDate" />
+        <input type="text" id="issueReported" placeholder="Issue reported" />
+        <input type="text" id="actionTaken" placeholder="Action taken" />
+        <input type="text" id="technicianName" placeholder="Technician name" />
+
+        <div class="button-row">
+          <button type="button" onclick="saveServiceEntry()">💾 Save Service</button>
+          <button type="button" id="newServiceBtn" onclick="openServiceModal()">➕ New Service</button>
+        </div>
+
+        <!-- 🛠️ Edit Service Entry Modal -->
+        <div id="serviceModal" class="modal hidden">
+          <div class="modal-content">
+            <span class="close" onclick="closeServiceModal()">×</span>
+            <h3>🛠️ Edit Service Entry</h3>
+            <input type="date" id="modalServiceDate" />
+            <input type="text" id="modalIssueReported" placeholder="Issue reported" />
+            <input type="text" id="modalActionTaken" placeholder="Action taken" />
+            <input type="text" id="modalTechnicianName" placeholder="Technician name" />
+            <button type="button" onclick="saveModalServiceEntry()">💾 Save</button>
+          </div>
+        </div>
+
+        <!-- 📋 Service History -->
+        <h4 style="margin-top: 2rem;">📋 Service History</h4>
+        <div id="serviceHistory"></div>
+
+        <!-- 📅 Footer -->
+        <footer style="margin-top: 2rem; text-align: center;">
+          <p>© 2025 ISTOS Medical</p>
+        </footer>
+      </form>
+    </main>
+  </div>
 
   <script src="service.js" defer></script>
 </body>
