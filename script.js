@@ -133,7 +133,7 @@ async function handleFormSubmit(e, form, container, resetCounter) {
       payload.append(key, value);
     }
 
-    const response = fetch("https://script.google.com/macros/s/AKfycbyesB2CEglAW9p0RHy3U4WMLfGiOgSkLJwUKSedOjkrGse29woYUvbjDZnwht_c4v4y/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyesB2CEglAW9p0RHy3U4WMLfGiOgSkLJwUKSedOjkrGse29woYUvbjDZnwht_c4v4y/exec", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: payload.toString()
