@@ -25,27 +25,50 @@ function displayInstallation(record) {
   document.getElementById('installationDetails').innerHTML = html;
 }
 
+
+
 function saveServiceEntry() {
   const qr = document.getElementById('searchInput').value.trim();
-  const serviceLog = JSON.parse(localStorage.getItem('services')) || [];
+  const serviceDate = document.getElementById('serviceDate').value;
+  const issue = document.getElementById('issueReported').value;
+  const actionTaken = document.getElementById('actionTaken').value;
+  const technician = document.getElementById('technicianName').value;
 
-  const newEntry = {
-    linkedQR: qr,
-    serviceDate: document.getElementById('serviceDate').value,
-    issue: document.getElementById('issueReported').value,
-    actionTaken: document.getElementById('actionTaken').value,
-    technician: document.getElementById('technicianName').value
-  };
-
-  if (!newEntry.serviceDate || !newEntry.issue || !newEntry.actionTaken || !newEntry.technician) {
+  if (!serviceDate || !issue || !actionTaken || !technician) {
     alert("⚠️ Please fill all fields before saving.");
     return;
   }
 
-  serviceLog.push(newEntry);
-  localStorage.setItem('services', JSON.stringify(serviceLog));
-  alert("✅ Service entry saved!");
+  const payload = {
+    qrCode: qr,
+    serviceDate,
+    issue,
+    actionTaken,
+    technician
+  };
+
+  fetch("https://script.google.com/macros/s/https://script.google.com/macros/s/AKfycbyiQJrm2Szvo1yKP-zTreWFsKeq_UFQqY5kY9_Jysqao84fKGgpySaqf4eMPE58huPy/exec", {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("✅ Service entry saved to ServiceForm sheet!");
+      showServiceHistory(qr); // Refresh history
+    } else {
+      alert("❌ Failed to save entry. Try again.");
+    }
+  })
+  .catch(err => {
+    console.error("Error saving entry:", err);
+    alert("🚨 Backend error. Check console or network.");
+  });
 }
+
 
 
 
