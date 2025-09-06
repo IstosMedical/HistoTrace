@@ -12,7 +12,7 @@ fetch("https://script.google.com/macros/s/AKfycbzbTMJTuvtsQEUHZyHfpf5u9SrgPboVpt
 
     data.forEach((entry, index) => {
       const card = createStatusCard(entry);
-      card.style.animationDelay = `${index * 100}ms`; // Staggered delay
+      card.style.animationDelay = `${index * 100}ms`; // Staggered fade-in
       container.appendChild(card);
     });
   })
