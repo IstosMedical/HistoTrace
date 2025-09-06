@@ -25,6 +25,17 @@
   font-size: 1.5rem;
 }
 
+.status-block.warranty h3::before {
+  content: '🟢';
+}
+
+.status-block.amc h3::before {
+  content: '🟡';
+}
+
+.status-block.expired h3::before {
+  content: '🔴';
+}
 
 .form-container {
   max-width: 600px;
