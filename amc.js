@@ -9,10 +9,17 @@ fetch("https://script.google.com/macros/s/AKfycbzbTMJTuvtsQEUHZyHfpf5u9SrgPboVpt
   .then(res => res.json())
   .then(data => {
     container.innerHTML = "";
-    data.forEach(entry => container.appendChild(createStatusCard(entry)));
+
+    data.forEach((entry, index) => {
+      const card = createStatusCard(entry);
+      card.style.animationDelay = `${index * 100}ms`; // Staggered delay
+      container.appendChild(card);
+    });
   })
   .catch(err => {
     container.innerHTML = "<p style='color:red;'>Failed to load AMC data.</p>";
     console.error("AMC fetch error:", err);
   })
-  .finally(() => spinner.style.display = "none");
+  .finally(() => {
+    spinner.style.display = "none";
+  });
