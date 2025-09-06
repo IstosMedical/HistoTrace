@@ -10,12 +10,22 @@ export function createStatusCard(entry) {
 
   card.style.border = `2px solid ${statusColor[entry.Status] || "#d1d5db"}`;
 
+  function formatDate(raw) {
+    const date = new Date(raw);
+    if (isNaN(date)) return raw; // fallback for "3 years", "1 YEAR", etc.
+    return date.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "short",
+      year: "numeric"
+    });
+  }
+
   card.innerHTML = `
     <h3>${entry.Customer}</h3>
     <p><strong>Equipment:</strong> ${entry.Equipment}</p>
     <p><strong>Status:</strong> <span style="color:${statusColor[entry.Status] || "#000"}">${entry.Status}</span></p>
-    <p><strong>Warranty Expiry:</strong> ${entry["Warranty Expiry"]}</p>
-    <p><strong>AMC Expiry:</strong> ${entry["AMC Expiry"]}</p>
+    <p><strong>Warranty Expiry:</strong> ${formatDate(entry["Warranty Expiry"])}</p>
+    <p><strong>AMC Expiry:</strong> ${formatDate(entry["AMC Expiry"])}</p>
   `;
 
   return card;
