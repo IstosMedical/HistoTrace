@@ -5,7 +5,7 @@ const container = document.getElementById("amcCards");
 
 spinner.style.display = "block";
 
-fetch("https://script.google.com/macros/s/AKfycbzbTMJTuvtsQEUHZyHfpf5u9SrgPboVptTHYrgTT41myd_c8coeb2djh2aUXaP5zF9t/exec?status=AMC")
+fetch("https://script.google.com/macros/s/AKfycbyesB2CEglAW9p0RHy3U4WMLfGiOgSkLJwUKSedOjkrGse29woYUvbjDZnwht_c4v4y/exec?status=AMC")
   .then(res => res.json())
   .then(data => {
     container.innerHTML = "";
