@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMC/Warranty Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <form class="form-container">
+    <h2>🛠️ AMC/Warranty Status</h2>
+
+    <label for="customer">👤 Customer Name:</label>
+    <input type="text" id="customer" name="customer" placeholder="Enter customer name" />
+
+    <label for="equipment">🔧 Equipment:</label>
+    <input type="text" id="equipment" name="equipment" placeholder="Enter equipment name" />
+
+    <label for="status">📊 Status:</label>
+    <select id="status" name="status">
+      <option value="">Choose status</option>
+      <option value="Warranty">Warranty</option>
+      <option value="AMC">AMC</option>
+      <option value="Expired">Expired</option>
+    </select>
+
+    <label for="warrantyExpiry">📅 Warranty Expiry:</label>
+    <input type="date" id="warrantyExpiry" name="warrantyExpiry" />
+
+    <label for="amcExpiry">📅 AMC Expiry:</label>
+    <input type="date" id="amcExpiry" name="amcExpiry" />
+
+    <label for="remarks">📝 Remarks:</label>
+    <textarea id="remarks" name="remarks" placeholder="Any notes or comments..."></textarea>
+
+    <button type="submit">✅ Submit</button>
+    <button type="button" onclick="window.location.href='index.html'">◀️ Back</button>
+  </form>
+
+  <script src="src/amc.js" type="module"></script>
+  <script src="src/warranty.js" type="module"></script>
+</body>
+</html>
