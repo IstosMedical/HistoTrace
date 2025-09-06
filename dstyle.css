@@ -1,23 +1,30 @@
-.status-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  gap: 2rem;
-  flex-wrap: nowrap;
-  padding: 1rem;
-}
-
 .status-block {
   flex: 1;
   min-width: 250px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  position: relative;
 }
 
-.card-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+.status-block h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-left: 2rem;
+  position: relative;
 }
+
+.status-block h3::before {
+  content: '🔰';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.5rem;
+}
+
 
 .form-container {
   max-width: 600px;
