@@ -12,12 +12,11 @@ export function createStatusCard(entry) {
 
   function formatDate(raw) {
     const date = new Date(raw);
-    if (isNaN(date)) return raw; // fallback for "3 years", "1 YEAR", etc.
-    return date.toLocaleDateString("en-IN", {
-      day: "numeric",
-      month: "short",
-      year: "numeric"
-    });
+    if (isNaN(date)) return raw;
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = date.toLocaleString("en-US", { month: "short" });
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
   }
 
   card.innerHTML = `
