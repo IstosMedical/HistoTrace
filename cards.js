@@ -19,13 +19,33 @@ export function createStatusCard(entry) {
     return `${day}-${month}-${year}`;
   }
 
+  const alertMsg = entry["Alert msg"] || "";
+let alertColor = "#6b7280"; // default gray
+let alertEmoji = "ℹ️";
+
+if (alertMsg.includes("Follow up")) {
+  alertColor = "#facc15"; // yellow
+  alertEmoji = "🟡";
+} else if (alertMsg.includes("Expired")) {
+  alertColor = "#ef4444"; // red
+  alertEmoji = "🔴";
+} else if (alertMsg.includes("No Warranty")) {
+  alertColor = "#f97316"; // orange
+  alertEmoji = "⚠️";
+} else if (alertMsg.includes("Active")) {
+  alertColor = "#22c55e"; // green
+  alertEmoji = "✅";
+}
+
   card.innerHTML = `
-    <h3>${entry.Customer}</h3>
-    <p><strong>Equipment:</strong> ${entry.Equipment}</p>
-    <p><strong>Status:</strong> <span style="color:${statusColor[entry.Status] || "#000"}">${entry.Status}</span></p>
-    <p><strong>Warranty Expiry:</strong> ${formatDate(entry["Warranty Expiry"])}</p>
-    <p><strong>AMC Expiry:</strong> ${formatDate(entry["AMC Expiry"])}</p>
-    <p><strong>Alert:</strong> ${entry["Alert msg"]}</p>
+    card.innerHTML = `
+      <h3>${entry.Customer}</h3>
+      <p><strong>Equipment:</strong> ${entry.Equipment}</p>
+      <p><strong>Status:</strong> <span style="color:${statusColor[entry.Status] || "#000"}">${entry.Status}</span></p>
+      <p><strong>Warranty Expiry:</strong> ${formatDate(entry["Warranty Expiry"])}</p>
+      <p><strong>AMC Expiry:</strong> ${formatDate(entry["AMC Expiry"])}</p>
+      <p><strong>Alert:</strong> <span style="color:${alertColor}">${alertEmoji} ${alertMsg}</span></p>
+
   `;
 
   return card;
