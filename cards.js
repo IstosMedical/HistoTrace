@@ -38,15 +38,14 @@ if (alertMsg.includes("Warranty Active")) {
 }
 
 
-  card.innerHTML = `
-    card.innerHTML = `
-      <h3>${entry.Customer}</h3>
-      <p><strong>Equipment:</strong> ${entry.Equipment}</p>
-      <p><strong>Status:</strong> <span style="color:${statusColor[entry.Status] || "#000"}">${entry.Status}</span></p>
-      <p><strong>Warranty Expiry:</strong> ${formatDate(entry["Warranty Expiry"])}</p>
-      <p><strong>AMC Expiry:</strong> ${formatDate(entry["AMC Expiry"])}</p>
-      <p><strong>Alert:</strong> <span style="color:${alertColor}">${alertEmoji} ${alertMsg}</span></p>
-  `;
+card.innerHTML = `
+  <h3>${entry.Customer}</h3>
+  <p><strong>Equipment:</strong> ${entry.Equipment}</p>
+  <p><strong>Status:</strong> <span style="color:${statusColor[entry.Status] || "#000"}">${entry.Status}</span></p>
+  <p><strong>Warranty Expiry:</strong> ${formatDate(entry["Warranty Expiry"])}</p>
+  <p><strong>AMC Expiry:</strong> ${formatDate(entry["AMC Expiry"])}</p>
+  <p><strong>Alert:</strong> <span style="color:${alertColor}">${alertEmoji} ${alertMsg}</span></p>
+`;
 
   return card;
 }
